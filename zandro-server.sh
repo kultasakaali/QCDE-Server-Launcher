@@ -57,6 +57,71 @@ export NEWT_COLORS='
     button=black,white
 '
 
+POSITIONAL_ARGS=()
+while [[ $# -gt 0 ]]; do
+  ran_with_args=1
+  case $1 in
+    -e|--engine)
+      engine="$2"
+      switches+=''
+      shift # past argument
+      shift # past value
+      ;;
+    -g|--gamemode)
+      config="$2"
+      switches+=''
+      shift # past argument
+      shift # past value
+      ;;
+    -m|--mapsets)
+      mapsets="$2"
+      switches+=''
+      shift # past argument
+      shift # past value
+      ;;
+    -o|--monsters)
+      monsters="$2"
+      switches+=''
+      shift # past argument
+      shift # past value
+      ;;
+    -t|--themes)
+      selected_themes="$2"
+      switches+=''
+      shift # past argument
+      shift # past value
+      ;;
+    --AeonDM)
+      switches+=" 1"
+      shift # past argument
+      ;;
+    --NeonDM)
+      switches+=" 2"
+      shift # past argument
+      ;;
+    --StackLeft)
+      switches+=" 3"
+      shift # past argument
+      ;;
+    --ItemTimers)
+      switches+=" 4"
+      shift # past argument
+      ;;
+    --UTWeapons)
+      switches+=" 5"
+      shift # past argument
+      ;;
+    -*|--*)
+      echo "Unknown option $1"
+      exit 1
+      ;;
+    *)
+      POSITIONAL_ARGS+=("$1") # save positional arg
+      shift # past argument
+      ;;
+  esac
+done
+
 function parse_maplist() {
     IFS=';' read -r -a maps <<< "$maplist"
 
@@ -193,7 +258,11 @@ function menu_switches() {
     fi
 }
 
-engine=$(menu_engine 3>&1 1>&2 2>&3)
+# open menu if $engine is unset or empty string
+if [ -z ${engine} ]; then
+ engine=$(menu_engine 3>&1 1>&2 2>&3)
+fi
+
 case $engine in
     "Q-Zandronum 1.3")
         server_executable="$qZandronumTestingPath"
@@ -226,7 +295,11 @@ case $engine in
         ;;
 esac
 
-config=$(menu_gamemode 3>&1 1>&2 2>&3)
+# open menu if $config is unset or empty string
+if [ -z ${config} ]; then
+  config=$(menu_gamemode 3>&1 1>&2 2>&3)
+fi
+
 case $config in
     "FFA")
         useMapList=true
@@ -254,15 +327,22 @@ case $config in
     "Survival")
         useMapList=false
         config="Gametype/Survival"
+        
+        if [ -z ${mapsets+x} ]; then
+          mapsets=$(menu_mapset 3>&1 1>&2 2>&3)
+        fi
 
-        mapsets=$(menu_mapset 3>&1 1>&2 2>&3)
-        monsters=$(menu_monsters 3>&1 1>&2 2>&3 | tr -d '"')
-        selected_themes=$(menu_themes)
+        if [ -z ${monsters+x} ]; then
+          monsters=$(menu_monsters 3>&1 1>&2 2>&3 | tr -d '"')
+        fi
+
+        if [ -z ${selected_themes+x} ]; then
+          selected_themes=$(menu_themes)
+        fi
 
         wads_load_always=${wads_load_always#"qcde_pvpvisibility.pk3"}
         additional_wads+=$monsters
         additional_params+="$selected_themes +map MAP01"
-        
         port=16566
         ;;
 
@@ -323,7 +403,12 @@ case $config in
         ;;
 esac
 
-switches=$(menu_switches 3>&1 1>&2 2>&3)
+
+# open menu if $switches is unset: when no command line arguments are passed
+if [ -z ${switches+x} ]; then
+ switches=$(menu_switches 3>&1 1>&2 2>&3)
+fi
+
 for sel in $switches; do
     case "$sel" in
     "1")
@@ -391,7 +476,8 @@ fi
 args="-port $port -iwad $iwad -file $mapsets $qcde $qcdemaps $qcdemus $wads_load_always -optfile $voxels $hdfaces $wads_optional -file $additional_wads $map_list +exec $config $additional_params $starting_map"
 
 export LD_LIBRARY_PATH=$(dirname $server_executable)
-if whiptail --backtitle "$BTITLE" --title "Would you like to edit the command line?" --yesno " " $WINH $WINW; then
+
+if [[ $ran_with_args -ne 1 ]] && whiptail --backtitle "$BTITLE" --title "Would you like to edit the command line?" --yesno " " $WINH $WINW; then
     clear
     read -e -p $'\e[33m\nEdit command line parameters:\e[39m\n\n' -i "$args" args
     $server_executable $args
