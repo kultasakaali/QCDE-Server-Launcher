@@ -390,6 +390,7 @@ fi
 
 args="-port $port -iwad $iwad -file $mapsets $qcde $qcdemaps $qcdemus $wads_load_always -optfile $voxels $hdfaces $wads_optional -file $additional_wads $map_list +exec $config $additional_params $starting_map"
 
+export LD_LIBRARY_PATH=$(dirname $server_executable)
 if whiptail --backtitle "$BTITLE" --title "Would you like to edit the command line?" --yesno " " $WINH $WINW; then
     clear
     read -e -p $'\e[33m\nEdit command line parameters:\e[39m\n\n' -i "$args" args
