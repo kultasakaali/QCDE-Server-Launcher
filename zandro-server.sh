@@ -250,7 +250,8 @@ function menu_switches() {
         "2" "NeonDM" OFF \
         "3" "StackLeft" ON \
         "4" "ItemTimers" ON \
-        "5" "UT Weapons" OFF
+        "5" "UT Weapons" OFF \
+        "6" "RandomChampions" OFF
 
     if [[ $? == 255 ]];
     then
@@ -441,6 +442,9 @@ for sel in $switches; do
         wads_optional+=" $utweapons_hires"
         qcdemus=$utmus
         voxels=$utvoxels
+        ;;
+    "6")
+        additional_wads+=" qcde--randomchampion_v1.26.pk3"
         ;;
     esac
 done
