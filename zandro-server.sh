@@ -409,6 +409,9 @@ if [ -z ${switches+x} ]; then
  switches=$(menu_switches 3>&1 1>&2 2>&3)
 fi
 
+stackleft=0
+itemtimers=0
+
 for sel in $switches; do
     case "$sel" in
     "1")
@@ -420,7 +423,7 @@ for sel in $switches; do
     "3")
         if [ "$server_executable" == "$qZandronumTestingPath" ];
         then
-            additional_params+=" +sv_showStackLeft 1"
+            stackleft=1
         else
             additional_wads+=" qcde--stackleft.pk3"
         fi
@@ -428,7 +431,7 @@ for sel in $switches; do
     "4")
         if [ "$server_executable" == "$qZandronumTestingPath" ];
         then
-            additional_params+=" +sv_showItemTimers 1"
+            itemtimers=1
         else
             additional_wads+=" qcde_megaarmorstimers_2.5.1.pk3"
         fi
@@ -441,6 +444,11 @@ for sel in $switches; do
         ;;
     esac
 done
+
+if [ "$server_executable" == "$qZandronumTestingPath" ];
+then
+    additional_params+=" +sv_showStackLeft $stackleft +sv_showItemTimers $itemtimers"
+fi
 
 if [ "$useAeon" == "true" ];
 then
@@ -484,7 +492,7 @@ if [[ $ran_with_args -ne 1 ]] && whiptail --backtitle "$BTITLE" --title "Would y
 else
     clear
     echo -e "\n$server_executable $args\n"
-    $server_executable $args
+    $server_executable $args $POSITIONAL_ARGS
 fi
 
 unset NEWT_COLORS
