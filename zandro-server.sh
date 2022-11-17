@@ -3,6 +3,7 @@
 # TODO:
 #   - handle mapsets of more than 1 wads
 #   - whiptail wrapper function
+#   - medals support for pre-QZ1.3
 
 trap "exit 1" 10
 PROC="$$"
@@ -251,7 +252,8 @@ function menu_switches() {
         "3" "StackLeft" ON \
         "4" "ItemTimers" ON \
         "5" "UT Weapons" OFF \
-        "6" "RandomChampions" OFF
+        "6" "RailJump / RailRecoil" OFF \
+        "7" "RandomChampions" OFF
 
     if [[ $? == 255 ]];
     then
@@ -278,7 +280,7 @@ case $engine in
         qcdemaps="qcdemaps2.7.pk3"
         qcdemus=""
         wads_load_always+=" qcdeqzpatch2.7.pk3 newtextcolors_260.pk3"
-        wads_optional+="qcdemus2.7.pk3"
+        wads_optional+=" qcdemus2.7.pk3"
         additional_params+="+sv_playerspeed 85 +compat_disable_wall_friction 1"
         ;;
 
@@ -288,7 +290,7 @@ case $engine in
         qcdemaps="qcdemaps2.7.pk3"
         qcdemus=""
         wads_load_always+=" newtextcolors_260.pk3"
-        wads_optional+="qcdemus2.7.pk3"
+        wads_optional+=" qcdemus2.7.pk3"
         ;;
 
     "Quit"|*)
@@ -412,6 +414,7 @@ fi
 
 stackleft=0
 itemtimers=0
+railrecoil=0
 
 for sel in $switches; do
     case "$sel" in
@@ -444,6 +447,19 @@ for sel in $switches; do
         voxels=$utvoxels
         ;;
     "6")
+        case "$server_executable" in 
+        "$qZandronumTestingPath")
+            railrecoil=1
+            ;;
+        "$qZandronumPath")
+            additional_wads+=" qcde--railjump-qzand_v1.3.pk3"
+            ;;
+        "$zandronumPath")
+            additional_wads+=" qcde--railjump.pk3"
+            ;;
+        esac
+        ;;
+    "7")
         additional_wads+=" qcde--randomchampion_v1.26.pk3"
         ;;
     esac
@@ -451,7 +467,7 @@ done
 
 if [ "$server_executable" == "$qZandronumTestingPath" ];
 then
-    additional_params+=" +sv_showStackLeft $stackleft +sv_showItemTimers $itemtimers"
+    additional_params+=" +sv_showStackLeft $stackleft +sv_showItemTimers $itemtimers +sv_railRecoil $railrecoil"
 fi
 
 if [ "$useAeon" == "true" ];
