@@ -253,7 +253,8 @@ function menu_switches() {
         "4" "ItemTimers" ON \
         "5" "UT Weapons" OFF \
         "6" "RailJump / RailRecoil" OFF \
-        "7" "RandomChampions" OFF
+        "7" "RandomChampions" OFF \
+        "8" "RandomRocketArena" OFF
 
     if [[ $? == 255 ]];
     then
@@ -461,6 +462,9 @@ for sel in $switches; do
         ;;
     "7")
         additional_wads+=" qcde--randomchampion_v1.26.pk3"
+        ;;
+    "8")
+        additional_wads+=" qcde--randomrocketarena_v1.02.pk3"
         ;;
     esac
 done
