@@ -21,7 +21,7 @@ qZandronumTestingPath="/home/kulta/q-zandronum-testing/q-zandronum-server"
 
 #configuration
 wads_load_always="qcde_pvpvisibility.pk3"
-wads_optional="georgeexleyannouncer.pk3 qcde--frankfurtloadingscreen.pk3"
+wads_optional="qcde--frankfurtloadingscreen.pk3"
 
 qcde="qcdev2.8_beta_8.pk3"
 qcdemaps="qcdemaps2.8_beta_4.pk3"
@@ -29,11 +29,14 @@ communitymaps="qcde_communitymaps_v15.pk3"
 qcdemus="qcdemus2.8_beta_2.pk3"
 hdfaces="qcde--hdfaces2.7.pk3"
 voxels="qcde--voxels2.2.pk3"
+announcer="georgeexleyannouncer.pk3"
 
 utweapons="qcde_ut_weapons_v2.8_beta_3.pk3"
 utweapons_hires="qcde_ut_weapons_v2.8_hires_beta_3.pk3"
 utvoxels="qcde_ut_weapons_v2.8_voxels_beta_3.pk3"
 utmus="qcdemus_ut_v2.8_beta_2.pk3"
+utmedals="qcde_ut_weapons_announcer_v1.01.pk3"
+utannouncer="utannouncer_0.8.pk3"
 
 pve_maps_folder="/home/kulta/.config/zandronum/pvemaps"
 pve_monster_folder="/home/kulta/.config/zandronum/pvemons"
@@ -444,10 +447,11 @@ for sel in $switches; do
         fi
         ;;
     "5")
-        additional_wads+=" $utweapons"
+        additional_wads+=" $utweapons $utmedals"
         wads_optional+=" $utweapons_hires"
         qcdemus=$utmus
         voxels=$utvoxels
+        announcer=$utannouncer
         ;;
     "6")
         case "$server_executable" in 
@@ -507,7 +511,7 @@ then
     iwad="DOOM2.WAD"
 fi
 
-args="-port $port -iwad $iwad -file $mapsets $qcde $qcdemaps $qcdemus $wads_load_always -optfile $voxels $hdfaces $wads_optional -file $additional_wads $map_list +exec $config $additional_params $starting_map"
+args="-port $port -iwad $iwad -file $mapsets $qcde $qcdemaps $qcdemus $wads_load_always -optfile $voxels $hdfaces $announcer $wads_optional -file $additional_wads $map_list +exec $config $additional_params $starting_map"
 
 export LD_LIBRARY_PATH=$(dirname $server_executable)
 
