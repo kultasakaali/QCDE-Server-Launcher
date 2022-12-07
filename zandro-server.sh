@@ -23,20 +23,20 @@ qZandronumTestingPath="/home/kulta/q-zandronum-testing/q-zandronum-server"
 wads_load_always="qcde_pvpvisibility.pk3"
 wads_optional="qcde--frankfurtloadingscreen.pk3"
 
-qcde="qcdev2.8_beta_8.pk3"
-qcdemaps="qcdemaps2.8_beta_4.pk3"
-communitymaps="qcde_communitymaps_v15.pk3"
+qcde="qcdev3.0_beta_1.pk3"
+qcdemaps="qcdemaps3.0_beta_1.pk3"
+communitymaps="qcde_communitymaps_v16.pk3"
 qcdemus="qcdemus2.8_beta_2.pk3"
-hdfaces="qcde--hdfaces2.7.pk3"
-voxels="qcde--voxels2.2.pk3"
+hdfaces="qcde--hdfaces3.0_beta_1.pk3"
+voxels="qcde--voxels3.0_beta_1.pk3"
 announcer="georgeexleyannouncer.pk3"
 
-utweapons="qcde_ut_weapons_v2.8_beta_3.pk3"
+utweapons="qcde_ut_weapons_v3.0_beta_1.pk3"
 utweapons_hires="qcde_ut_weapons_v2.8_hires_beta_3.pk3"
 utvoxels="qcde_ut_weapons_v2.8_voxels_beta_3.pk3"
 utmus="qcdemus_ut_v2.8_beta_2.pk3"
-utmedals="qcde_ut_weapons_announcer_v1.01.pk3"
-utannouncer="utannouncer_0.8.pk3"
+utmedals="qcde_ut_weapons_announcer_v1.02.pk3"
+utannouncer="utannouncer_0.9.pk3"
 
 pve_maps_folder="/home/kulta/.config/zandronum/pvemaps"
 pve_monster_folder="/home/kulta/.config/zandronum/pvemons"
@@ -276,7 +276,6 @@ case $engine in
         server_executable="$qZandronumTestingPath"
         qcdemaps+=" $communitymaps"
         maplist+=";QCCM01;QCCM02;QCCM03"
-        additional_params+="+sv_playerspeed 85 "
         ;;
 
     "Q-Zandronum 1.2")
@@ -447,7 +446,7 @@ for sel in $switches; do
         fi
         ;;
     "5")
-        additional_wads+=" $utweapons $utmedals"
+        additional_wads+=" $utweapons $utmedals qcde_allutmov_v3.0_beta_1.pk3"
         wads_optional+=" $utweapons_hires"
         qcdemus=$utmus
         voxels=$utvoxels
