@@ -275,7 +275,7 @@ case $engine in
     "Q-Zandronum 1.3")
         server_executable="$qZandronumTestingPath"
         qcdemaps+=" $communitymaps"
-        maplist+=";QCCM01;QCCM02;QCCM03"
+        maplist+=";QCCM01;QCCM02;QCCM03;QCCM04"
         ;;
 
     "Q-Zandronum 1.2")
