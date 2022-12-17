@@ -23,7 +23,7 @@ qZandronumTestingPath="/home/kulta/q-zandronum-testing/q-zandronum-server"
 wads_load_always="qcde_pvpvisibility.pk3"
 wads_optional="qcde--frankfurtloadingscreen.pk3"
 
-qcde="qcdev3.0_beta_1.pk3"
+qcde="qcdev3.0_beta_2.pk3"
 qcdemaps="qcdemaps3.0_beta_1.pk3"
 communitymaps="qcde_communitymaps_v16.pk3"
 qcdemus="qcdemus2.8_beta_2.pk3"
@@ -34,8 +34,8 @@ announcer="georgeexleyannouncer.pk3"
 utweapons="qcde_ut_weapons_v3.0_beta_1.pk3"
 utweapons_hires="qcde_ut_weapons_v2.8_hires_beta_3.pk3"
 utvoxels="qcde_ut_weapons_v2.8_voxels_beta_3.pk3"
-utmus="qcdemus_ut_v2.8_beta_2.pk3"
-utmedals="qcde_ut_weapons_announcer_v1.02.pk3"
+utmus="qcdemus_ut_v2.8_beta_3.pk3"
+utmedals="qcde_ut_weapons_announcer_v1.03.pk3"
 utannouncer="utannouncer_0.9.pk3"
 
 pve_maps_folder="/home/kulta/.config/zandronum/pvemaps"
@@ -446,7 +446,7 @@ for sel in $switches; do
         fi
         ;;
     "5")
-        additional_wads+=" $utweapons $utmedals qcde_allutmov_v3.0_beta_1.pk3"
+        additional_wads+=" $utweapons $utmedals qcde_allutmov_v3.0_beta_2.pk3"
         wads_optional+=" $utweapons_hires"
         qcdemus=$utmus
         voxels=$utvoxels
