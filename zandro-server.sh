@@ -276,6 +276,7 @@ case $engine in
         server_executable="$qZandronumTestingPath"
         qcdemaps+=" $communitymaps"
         maplist+=";QCCM01;QCCM02;QCCM03;QCCM04"
+        additional_params+="+sv_playerspeed 0"
         ;;
 
     "Q-Zandronum 1.2")
