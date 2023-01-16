@@ -23,18 +23,19 @@ qZandronumTestingPath="/home/kulta/q-zandronum-testing/q-zandronum-server"
 wads_load_always="qcde_pvpvisibility.pk3"
 wads_optional="qcde--frankfurtloadingscreen.pk3"
 
-qcde="qcdev3.0_beta_2.pk3"
-qcdemaps="qcdemaps3.0_beta_1.pk3"
-communitymaps="qcde_communitymaps_v16.pk3"
-qcdemus="qcdemus2.8_beta_2.pk3"
-hdfaces="qcde--hdfaces3.0_beta_1.pk3"
-voxels="qcde--voxels3.0_beta_1.pk3"
+qcde="qcdev3.0_beta_3.pk3"
+qcdemaps="qcdemaps3.0_beta_2.pk3"
+communitymaps="qcde_communitymaps_v17.pk3"
+qcdemus="qcdemus3.0_beta_1.pk3"
+hdfaces="qcde--hdfaces3.0_beta_2.pk3"
+voxels="qcde--voxels3.0_beta_2.pk3"
 announcer="georgeexleyannouncer.pk3"
 
-utweapons="qcde_ut_weapons_v3.0_beta_1.pk3"
-utweapons_hires="qcde_ut_weapons_v2.8_hires_beta_3.pk3"
-utvoxels="qcde_ut_weapons_v2.8_voxels_beta_3.pk3"
-utmus="qcdemus_ut_v2.8_beta_3.pk3"
+utweapons="qcde_ut_weapons_v3.0_beta_2.pk3"
+utweapons_hires="qcde_ut_weapons_v3.0_hires_beta_1.pk3"
+utmovement="qcde_allutmov_v3.0_beta_3.pk3"
+utvoxels="qcde_ut_weapons_v3.0_voxels_beta_1.pk3"
+utmus="qcdemus_ut_v3.0_beta_1.pk3"
 utmedals="qcde_ut_weapons_announcer_v1.03.pk3"
 utannouncer="utannouncer_0.9.pk3"
 
@@ -275,8 +276,7 @@ case $engine in
     "Q-Zandronum 1.3")
         server_executable="$qZandronumTestingPath"
         qcdemaps+=" $communitymaps"
-        maplist+=";QCCM01;QCCM02;QCCM03;QCCM04"
-        additional_params+="+sv_playerspeed 0"
+        maplist+=";QCCM01;QCCM02;QCCM03;QCCM04;QCCM05;QCCM06"
         ;;
 
     "Q-Zandronum 1.2")
@@ -447,7 +447,7 @@ for sel in $switches; do
         fi
         ;;
     "5")
-        additional_wads+=" $utweapons $utmedals qcde_allutmov_v3.0_beta_2.pk3"
+        additional_wads+=" $utweapons $utmedals $utmovement"
         wads_optional+=" $utweapons_hires"
         qcdemus=$utmus
         voxels=$utvoxels
