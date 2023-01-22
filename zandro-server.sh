@@ -23,7 +23,7 @@ qZandronumTestingPath="/home/kulta/q-zandronum-testing/q-zandronum-server"
 wads_load_always="qcde_pvpvisibility.pk3"
 wads_optional="qcde--frankfurtloadingscreen.pk3"
 
-qcde="qcdev3.0_beta_3.pk3"
+qcde="qcdev3.0_beta_5.pk3"
 qcdemaps="qcdemaps3.0_beta_2.pk3"
 communitymaps="qcde_communitymaps_v17.pk3"
 qcdemus="qcdemus3.0_beta_1.pk3"
@@ -375,6 +375,7 @@ case $config in
     "LGPractice")
         useMapList=false
         config="Gametype/LGPractice"
+        requires_qcdemaps=true
         additional_wads+="qcde--lgtrain_v1.25.pk3 qcde--lgtrain-arenas_v1.0.pk3"
         additional_params+="+addmap QCLG01 +addmap QCLG02 +map QCLG01"
         port=16166
@@ -499,7 +500,8 @@ then
     IFS="|" read -r -a parsedMaps <<< $(parse_maplist)
     map_list=${parsedMaps[1]}
     starting_map="+map ${parsedMaps[0]}"
-else
+elif [ "$requires_qcdemaps" != "true" ]
+then
     qcdemaps=""
 fi
 
