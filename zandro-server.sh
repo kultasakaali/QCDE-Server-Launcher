@@ -36,7 +36,7 @@ utweapons_hires="qcde_ut_weapons_v3.0_hires_beta_5.pk3"
 utmovement="qcde_allutmov_v3.0_beta_8.pk3"
 utvoxels="qcde_ut_weapons_v3.0_voxels_beta_5.pk3"
 utmus="qcdemus_ut_v3.0_beta_1.pk3"
-utmedals="qcde_ut_weapons_announcer_v1.05.pk3"
+utmedals="qcde_ut_weapons_3.0_multi-spree_beta_1.pk3"
 utannouncer="utannouncer_0.9.pk3"
 
 pve_maps_folder="/home/kulta/.config/zandronum/pvemaps"
@@ -259,7 +259,7 @@ function menu_switches() {
         "3" "StackLeft" ON \
         "4" "ItemTimers" ON \
         "5" "UT Weapons" OFF \
-        "6" "RailJump / RailRecoil" OFF \
+        "6" "RailJump" OFF \
         "7" "RandomChampions" OFF \
         "8" "RandomRocketArena" OFF
 
@@ -423,7 +423,7 @@ fi
 
 stackleft=0
 itemtimers=0
-railrecoil=0
+railjump=0
 
 for sel in $switches; do
     case "$sel" in
@@ -459,7 +459,7 @@ for sel in $switches; do
     "6")
         case "$server_executable" in 
         "$qZandronumTestingPath")
-            railrecoil=1
+            railjump=1
             ;;
         "$qZandronumPath")
             additional_wads+=" qcde--railjump-qzand_v1.3.pk3"
@@ -480,7 +480,7 @@ done
 
 if [ "$server_executable" == "$qZandronumTestingPath" ];
 then
-    additional_params+=" +sv_showStackLeft $stackleft +sv_showItemTimers $itemtimers +sv_railRecoil $railrecoil"
+    additional_params+=" +sv_showStackLeft $stackleft +sv_showItemTimers $itemtimers +sv_railJump $railjump"
 fi
 
 if [ "$useAeon" == "true" ];
