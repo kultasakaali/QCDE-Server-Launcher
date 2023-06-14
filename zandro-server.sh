@@ -36,7 +36,6 @@ utweapons_hires="qcde_ut_weapons_v3.0_hires_beta_5.pk3"
 utmovement="qcde_allutmov_v3.0_beta_9.pk3"
 utvoxels="qcde_ut_weapons_v3.0_voxels_beta_6.pk3"
 utmus="qcdemus_ut_v3.0_beta_1.pk3"
-utmedals="qcde_ut_weapons_3.0_multi-spree_beta_1.pk3"
 utannouncer="utannouncer_0.9.pk3"
 
 pve_maps_folder="/home/kulta/.config/zandronum/pvemaps"
@@ -450,7 +449,7 @@ for sel in $switches; do
         fi
         ;;
     "5")
-        additional_wads+=" $utweapons $utmedals $utmovement"
+        additional_wads+=" $utweapons $utmovement"
         wads_optional+=" $utweapons_hires"
         qcdemus=$utmus
         voxels=$utvoxels
@@ -485,7 +484,7 @@ fi
 
 if [ "$useAeon" == "true" ];
 then
-    mapsets="aeonqcde.pk3 aeonqcde_communitypatch_v0.2.pk3 "$mapsets
+    mapsets="aeonqcde3.0_beta3.pk3 "$mapsets
     maplist+=$aeonlist
 fi
 
