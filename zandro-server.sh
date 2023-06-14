@@ -16,8 +16,8 @@ LSTH=8
 
 #engines
 zandronumPath="/home/kulta/zandronum/zandronum-server"
+qZandronumLegacyPath="/home/kulta/q-zandronum-legacy/q-zandronum-server"
 qZandronumPath="/home/kulta/q-zandronum/q-zandronum-server"
-qZandronumTestingPath="/home/kulta/q-zandronum-testing/q-zandronum-server"
 
 #configuration
 wads_load_always="qcde_pvpvisibility.pk3"
@@ -162,7 +162,7 @@ function exit_handler() {
 
 function menu_engine() {
     whiptail --backtitle "$BTITLE" --title "Select engine" --noitem --menu " " $WINH $WINW $LSTH \
-        "Q-Zandronum 1.3" "" \
+        "Q-Zandronum" "" \
         "Q-Zandronum 1.2" "" \
         "Zandronum" "" \
         "Quit" ""
@@ -274,14 +274,14 @@ if [ -z ${engine} ]; then
 fi
 
 case $engine in
-    "Q-Zandronum 1.3")
-        server_executable="$qZandronumTestingPath"
+    "Q-Zandronum")
+        server_executable="$qZandronumPath"
         qcdemaps+=" $communitymaps"
         maplist+="$communitylist"
         ;;
 
     "Q-Zandronum 1.2")
-        server_executable="$qZandronumPath"
+        server_executable="$qZandronumLegacyPath"
         qcde="qcdev2.7.pk3"
         qcdemaps="qcdemaps2.7.pk3"
         qcdemus=""
@@ -433,7 +433,7 @@ for sel in $switches; do
         useNeon=true
         ;;
     "3")
-        if [ "$server_executable" == "$qZandronumTestingPath" ];
+        if [ "$server_executable" == "$qZandronumPath" ];
         then
             stackleft=1
         else
@@ -441,7 +441,7 @@ for sel in $switches; do
         fi
         ;;
     "4")
-        if [ "$server_executable" == "$qZandronumTestingPath" ];
+        if [ "$server_executable" == "$qZandronumPath" ];
         then
             itemtimers=1
         else
@@ -457,10 +457,10 @@ for sel in $switches; do
         ;;
     "6")
         case "$server_executable" in 
-        "$qZandronumTestingPath")
+        "$qZandronumPath")
             railjump=1
             ;;
-        "$qZandronumPath")
+        "$qZandronumLegacyPath")
             additional_wads+=" qcde--railjump-qzand_v1.3.pk3"
             ;;
         "$zandronumPath")
@@ -477,7 +477,7 @@ for sel in $switches; do
     esac
 done
 
-if [ "$server_executable" == "$qZandronumTestingPath" ];
+if [ "$server_executable" == "$qZandronumPath" ];
 then
     additional_params+=" +sv_showStackLeft $stackleft +sv_showItemTimers $itemtimers +sv_railJump $railjump"
 fi
