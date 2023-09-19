@@ -3,7 +3,8 @@
 # TODO:
 #   - handle mapsets of more than 1 wads
 #   - whiptail wrapper function
-#   - medals support for pre-QZ1.3
+#   - check if files to be loaded exist, do not start the server if any wad is missing
+#   - drop legacy QZ
 
 trap "exit 1" 10
 PROC="$$"
@@ -23,28 +24,28 @@ qZandronumPath="/home/kulta/q-zandronum/q-zandronum-server"
 wads_load_always="qcde_pvpvisibility.pk3"
 wads_optional="qcde--frankfurtloadingscreen.pk3"
 
-qcde="qcdev3.0_beta_15.pk3"
-qcdemaps="qcdemaps3.0_beta_11.pk3"
+qcde="qcdev3.0_beta_19.pk3"
+qcdemaps="qcdemaps3.0_beta_15.pk3"
 communitymaps="qcde_communitymaps_v18.pk3"
-qcdemus="qcdemus3.0_beta_1.pk3"
-hdfaces="qcde--hdfaces3.0_beta_7.pk3"
-voxels="qcde--voxels3.0_beta_3.pk3"
+qcdemus="qcdemus3.0_beta_2.pk3"
+hdfaces="qcde--hdfaces3.0_beta_8.pk3"
+voxels="qcde--voxels3.0_beta_5.pk3"
 announcer="georgeexleyannouncer.pk3"
 
-utweapons="qcde_ut_weapons_v3.0_beta_8.pk3"
+utweapons="qcde_ut_weapons_v3.0_beta_11.pk3"
 utweapons_hires="qcde_ut_weapons_v3.0_hires_beta_5.pk3"
-utmovement="qcde_allutmov_v3.0_beta_9.pk3"
-utvoxels="qcde_ut_weapons_v3.0_voxels_beta_6.pk3"
-utmus="qcdemus_ut_v3.0_beta_1.pk3"
+utmovement="qcde_allutmov_v3.0_beta_10.pk3"
+utvoxels="qcde_ut_weapons_v3.0_voxels_beta_8.pk3"
+utmus="qcdemus_ut_v3.0_beta_2.pk3"
 utannouncer="utannouncer_0.9.pk3"
 
 pve_maps_folder="/home/kulta/.config/zandronum/pvemaps"
 pve_monster_folder="/home/kulta/.config/zandronum/pvemons"
 
-maplist="QCDE01;QCDE02;QCDE04;QCDE05;QCDE06;QCDE07;QCDE08;QCDE09;QCDE10;QCDE11;QCDE13;QCDE14;QCDE15;QCDE16;QCDE17;QCDE18;QCDE19;QCDE20;QCDE21;QCDE22;QCDE24;QCDE25;QCDE26;QCDE27;QCDE28;QCDE29;QCDE30;QCDE31;QCDE32;QCDE33;QCDE34;QCDE35;QCDE36;QCDE37;QCDE38;QCDE39;QCDE40;QCDE41;QCDE42;QCDE43;QCDE44;QCDE45;QCDE46;QCDE47;QCDE48;QCDE49;QCDL02;QCDL03;QCDL04;QCDL05;QCDL06;QCDL07;QCDL08;QCDL09;QCDL10;QCME01;QCME02"
+maplist="QCDE01;QCDE02;QCDE04;QCDE05;QCDE06;QCDE07;QCDE08;QCDE09;QCDE10;QCDE11;QCDE13;QCDE14;QCDE15;QCDE16;QCDE17;QCDE18;QCDE19;QCDE20;QCDE21;QCDE22;QCDE24;QCDE25;QCDE26;QCDE27;QCDE28;QCDE29;QCDE30;QCDE31;QCDE32;QCDE33;QCDE34;QCDE35;QCDE36;QCDE37;QCDE38;QCDE39;QCDE40;QCDE41;QCDE42;QCDE43;QCDE44;QCDE45;QCDE46;QCDE47;QCDE48;QCDE49;QCDE50;QCDL02;QCDL03;QCDL04;QCDL05;QCDL06;QCDL07;QCDL08;QCDL09;QCDL10;QCME01;QCME02"
 duellist="QCDE01;QCDE02;QCDE05;QCDE06;QCDE08;QCDE09;QCDE10;QCDE11;QCDE14;QCDE15;QCDE16;QCDE18;QCDE19;QCDE20;QCDE21;QCDE22;QCDE24;QCDE26;QCDE27;QCDE28;QCDE29;QCDE30;QCDE32;QCDE35;QCDE37;QCDE39;QCDE40;QCDE41;QCDE42;QCDE45;QCDE46;QCDE48;QCDE49;QCDL02;QCDL03;QCDL04;QCDL05;QCDL06;QCDL07;QCDL09;QCDL10"
-communitylist=";QCCM02;QCCM03"
-communityduellist=";QCCM01;QCCM03"
+communitylist=";QCCM03"
+communityduellist=""
 aeonlist=";AEON01;AEON02;AEON03;AEON04;AEON05;AEON06;AEON07;AEON08;AEON09;AEON10;AEON11;AEON12;AEON13;AEON14;AEON15;AEON16;AEON17;AEON18;AEON19;AEON20;AEON21;AEON22;AEON23;AEON24;AEON25;AEON26;AEON27;AEON28;AEON29;AEON30;AEON31;AEON32;AEON33"
 neonlist=";NEON01;NEON02;NEON03;NEON04;NEON05;NEON06;NEON07;NEON08;NEON09;NEON10;NEON11;NEON12;NEON13;NEON14;NEON15"
 
@@ -89,34 +90,34 @@ while [[ $# -gt 0 ]]; do
     -o|--monsters)
       monsters="$2"
       switches+=''
-      shift # past argument
-      shift # past value
+      shift
+      shift
       ;;
     -t|--themes)
       selected_themes="$2"
       switches+=''
-      shift # past argument
-      shift # past value
+      shift
+      shift
       ;;
     --AeonDM)
       switches+=" 1"
-      shift # past argument
+      shift
       ;;
     --NeonDM)
       switches+=" 2"
-      shift # past argument
+      shift
       ;;
     --StackLeft)
       switches+=" 3"
-      shift # past argument
+      shift
       ;;
     --ItemTimers)
       switches+=" 4"
-      shift # past argument
+      shift
       ;;
     --UTWeapons)
       switches+=" 5"
-      shift # past argument
+      shift
       ;;
     -*|--*)
       echo "Unknown option $1"
@@ -124,7 +125,7 @@ while [[ $# -gt 0 ]]; do
       ;;
     *)
       POSITIONAL_ARGS+=("$1") # save positional arg
-      shift # past argument
+      shift
       ;;
   esac
 done
@@ -484,13 +485,13 @@ fi
 
 if [ "$useAeon" == "true" ];
 then
-    mapsets="aeonqcde3.0_beta3.pk3 "$mapsets
+    qcdemaps+=" aeonqcde3.0_beta4.pk3"
     maplist+=$aeonlist
 fi
 
 if [ "$useNeon" == "true" ];
 then
-    mapsets="neondm.pk3 "$mapsets
+    qcdemaps+=" neonqcde3.0_beta_3.pk3"
     maplist+=$neonlist
 fi
 
