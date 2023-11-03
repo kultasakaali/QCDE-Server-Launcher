@@ -24,18 +24,18 @@ qZandronumPath="/home/kulta/q-zandronum/q-zandronum-server"
 wads_load_always="qcde_pvpvisibility.pk3"
 wads_optional="qcde--frankfurtloadingscreen.pk3"
 
-qcde="qcdev3.0_beta_19.pk3"
-qcdemaps="qcdemaps3.0_beta_15.pk3"
+qcde="qcdev3.0_beta_21.pk3"
+qcdemaps="qcdemaps3.0_beta_21.pk3"
 communitymaps="qcde_communitymaps_v18.pk3"
 qcdemus="qcdemus3.0_beta_2.pk3"
 hdfaces="qcde--hdfaces3.0_beta_8.pk3"
-voxels="qcde--voxels3.0_beta_5.pk3"
+voxels="qcde--voxels3.0_beta_20.pk3"
 announcer="georgeexleyannouncer.pk3"
 
-utweapons="qcde_ut_weapons_v3.0_beta_11.pk3"
-utweapons_hires="qcde_ut_weapons_v3.0_hires_beta_5.pk3"
-utmovement="qcde_allutmov_v3.0_beta_10.pk3"
-utvoxels="qcde_ut_weapons_v3.0_voxels_beta_8.pk3"
+utweapons="qcde_ut_weapons_v3.0_beta_21.pk3"
+utweapons_hires="qcde_ut_weapons_v3.0_hires_beta_20.pk3"
+utmovement="qcde_allutmov_v3.0_beta_20.pk3"
+utvoxels="qcde_ut_weapons_v3.0_voxels_beta_20.pk3"
 utmus="qcdemus_ut_v3.0_beta_2.pk3"
 utannouncer="utannouncer_0.9.pk3"
 
@@ -43,7 +43,7 @@ pve_maps_folder="/home/kulta/.config/zandronum/pvemaps"
 pve_monster_folder="/home/kulta/.config/zandronum/pvemons"
 
 maplist="QCDE01;QCDE02;QCDE04;QCDE05;QCDE06;QCDE07;QCDE08;QCDE09;QCDE10;QCDE11;QCDE13;QCDE14;QCDE15;QCDE16;QCDE17;QCDE18;QCDE19;QCDE20;QCDE21;QCDE22;QCDE24;QCDE25;QCDE26;QCDE27;QCDE28;QCDE29;QCDE30;QCDE31;QCDE32;QCDE33;QCDE34;QCDE35;QCDE36;QCDE37;QCDE38;QCDE39;QCDE40;QCDE41;QCDE42;QCDE43;QCDE44;QCDE45;QCDE46;QCDE47;QCDE48;QCDE49;QCDE50;QCDL02;QCDL03;QCDL04;QCDL05;QCDL06;QCDL07;QCDL08;QCDL09;QCDL10;QCME01;QCME02"
-duellist="QCDE01;QCDE02;QCDE05;QCDE06;QCDE08;QCDE09;QCDE10;QCDE11;QCDE14;QCDE15;QCDE16;QCDE18;QCDE19;QCDE20;QCDE21;QCDE22;QCDE24;QCDE26;QCDE27;QCDE28;QCDE29;QCDE30;QCDE32;QCDE35;QCDE37;QCDE39;QCDE40;QCDE41;QCDE42;QCDE45;QCDE46;QCDE48;QCDE49;QCDL02;QCDL03;QCDL04;QCDL05;QCDL06;QCDL07;QCDL09;QCDL10"
+duellist="QCDE01;QCDE02;QCDE05;QCDE06;QCDE08;QCDE09;QCDE10;QCDE11;QCDE14;QCDE15;QCDE16;QCDE18;QCDE19;QCDE20;QCDE21;QCDE22;QCDE24;QCDE26;QCDE27;QCDE28;QCDE29;QCDE30;QCDE32;QCDE35;QCDE37;QCDE39;QCDE40;QCDE41;QCDE42;QCDE45;QCDE46;QCDE48;QCDE50;QCDL02;QCDL03;QCDL04;QCDL05;QCDL06;QCDL07;QCDL09;QCDL10"
 communitylist=";QCCM03"
 communityduellist=""
 aeonlist=";AEON01;AEON02;AEON03;AEON04;AEON05;AEON06;AEON07;AEON08;AEON09;AEON10;AEON11;AEON12;AEON13;AEON14;AEON15;AEON16;AEON17;AEON18;AEON19;AEON20;AEON21;AEON22;AEON23;AEON24;AEON25;AEON26;AEON27;AEON28;AEON29;AEON30;AEON31;AEON32;AEON33"
@@ -78,14 +78,14 @@ while [[ $# -gt 0 ]]; do
     -g|--gamemode)
       config="$2"
       switches+=''
-      shift # past argument
-      shift # past value
+      shift
+      shift
       ;;
     -m|--mapsets)
       mapsets="$2"
       switches+=''
-      shift # past argument
-      shift # past value
+      shift
+      shift
       ;;
     -o|--monsters)
       monsters="$2"
@@ -175,6 +175,7 @@ function menu_gamemode() {
         "TDM" "" \
         "Duel" "" \
         "Survival" "" \
+	"ClanArena" "" \
         "InstaGib" "" \
         "FreezeTag" "" \
         "LGPractice" "" \
@@ -338,7 +339,7 @@ case $config in
     "Survival")
         useMapList=false
         config="Gametype/Survival"
-        
+
         if [ -z ${mapsets+x} ]; then
           mapsets=$(menu_mapset 3>&1 1>&2 2>&3)
         fi
@@ -356,6 +357,12 @@ case $config in
         additional_params+="$selected_themes +map MAP01"
         port=16566
         ;;
+
+    "ClanArena")
+	useMapList=true
+	config="Gametype/ClanArena"
+	additional_wads+="qcde--ca_patch3.0_beta20.pk3"
+	;;
 
     "InstaGib")
         useMapList=true
@@ -459,7 +466,6 @@ for sel in $switches; do
     "6")
         case "$server_executable" in 
         "$qZandronumPath")
-            railjump=1
             ;;
         "$qZandronumLegacyPath")
             additional_wads+=" qcde--railjump-qzand_v1.3.pk3"
@@ -480,7 +486,7 @@ done
 
 if [ "$server_executable" == "$qZandronumPath" ];
 then
-    additional_params+=" +sv_showStackLeft $stackleft +sv_showItemTimers $itemtimers +sv_railJump $railjump"
+    additional_params+=" +sv_showStackLeft $stackleft +sv_showItemTimers $itemtimers"
 fi
 
 if [ "$useAeon" == "true" ];
@@ -491,7 +497,7 @@ fi
 
 if [ "$useNeon" == "true" ];
 then
-    qcdemaps+=" neonqcde3.0_beta_3.pk3"
+    qcdemaps+=" neonqcde3.0_beta_4.pk3"
     maplist+=$neonlist
 fi
 
