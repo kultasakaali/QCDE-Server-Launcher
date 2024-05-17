@@ -1,10 +1,9 @@
 #!/bin/bash
 
-# TODO:
-#   - handle mapsets of more than 1 wads
-#   - whiptail wrapper function
-#   - check if files to be loaded exist, do not start the server if any wad is missing
-#   - drop legacy QZ
+#TODO: handle mapsets of more than 1 wads
+#TODO: whiptail wrapper function
+#TODO: check if files to be loaded exist, do not start the server if any wad is missing
+#TODO: drop legacy QZ
 
 trap "exit 1" 10
 PROC="$$"
@@ -24,15 +23,15 @@ qZandronumPath="/home/kulta/q-zandronum/q-zandronum-server"
 wads_load_always="qcde_pvpvisibility.pk3"
 wads_optional="qcde--frankfurtloadingscreen.pk3"
 
-qcde="qcdev3.0_beta_21.pk3"
-qcdemaps="qcdemaps3.0_beta_21.pk3"
+qcde="qcdev3.0_beta_23.pk3"
+qcdemaps="qcdemaps3.0_beta_23.pk3"
 communitymaps="qcde_communitymaps_v18.pk3"
 qcdemus="qcdemus3.0_beta_2.pk3"
 hdfaces="qcde--hdfaces3.0_beta_8.pk3"
 voxels="qcde--voxels3.0_beta_20.pk3"
 announcer="georgeexleyannouncer.pk3"
 
-utweapons="qcde_ut_weapons_v3.0_beta_21.pk3"
+utweapons="qcde_ut_weapons_v3.0_beta_23.pk3"
 utweapons_hires="qcde_ut_weapons_v3.0_hires_beta_20.pk3"
 utmovement="qcde_allutmov_v3.0_beta_20.pk3"
 utvoxels="qcde_ut_weapons_v3.0_voxels_beta_20.pk3"
@@ -361,7 +360,7 @@ case $config in
     "ClanArena")
 	useMapList=true
 	config="Gametype/ClanArena"
-	additional_wads+="qcde--ca_patch3.0_beta20.pk3"
+	additional_wads+="qcde--ca_patch3.0_beta23.pk3"
 	;;
 
     "InstaGib")
