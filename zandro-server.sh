@@ -1,7 +1,6 @@
 #!/bin/bash
 
 #TODO: handle mapsets of more than 1 wads
-#TODO: whiptail wrapper function
 #TODO: check if files to be loaded exist, do not start the server if any wad is missing
 #TODO: drop legacy QZ
 
@@ -16,35 +15,28 @@ LSTH=8
 
 #engines
 zandronumPath="/home/kulta/zandronum/zandronum-server"
-qZandronumLegacyPath="/home/kulta/q-zandronum-legacy/q-zandronum-server"
 qZandronumPath="/home/kulta/q-zandronum/q-zandronum-server"
 
 #configuration
 wads_load_always="qcde_pvpvisibility.pk3"
 wads_optional="qcde--frankfurtloadingscreen.pk3"
 
-qcde="qcdev3.0_beta_31.pk3"
-qcdemaps="qcdemaps3.0_beta_30.pk3"
-communitymaps="qcde_communitymaps_v18.pk3"
-qcdemus="qcdemus3.0_beta_31.pk3"
-hdfaces="qcde--hdfaces3.0_beta_8.pk3"
-voxels="qcde--voxels3.0_beta_20.pk3"
-announcer=""
+qcde="qcdev3.0.pk3"
+qcdemaps="qcdemaps3.0.pk3"
+retiredmaps="qcde_retiredmaps_v18.pk3"
+qcdemus="qcdemus3.0.pk3"
 
-utweapons="qcde_ut_weapons_v3.0_beta_31.pk3"
-utweapons_hires="qcde_ut_weapons_v3.0_hires_beta_20.pk3"
-utmovement="qcde_ut_movement_v3.0_beta_27.pk3"
-utvoxels="qcde_ut_weapons_v3.0_voxels_beta_20.pk3"
-utmus="qcdemus_ut_v3.0_beta_31.pk3"
-utannouncer=""
+utweapons="qcde_ut_weapons_v3.0.pk3"
+utweapons_hires="qcde_ut_weapons_v3.0_hires.pk3"
+utmovement="qcde_ut_movement_v3.0.pk3"
+utmus="qcdemus_ut_v3.0.pk3"
 
 pve_maps_folder="/home/kulta/.config/zandronum/pvemaps"
 pve_monster_folder="/home/kulta/.config/zandronum/pvemons"
 
 maplist="QCDE01;QCDE02;QCDE04;QCDE05;QCDE06;QCDE07;QCDE08;QCDE09;QCDE10;QCDE11;QCDE13;QCDE14;QCDE15;QCDE16;QCDE17;QCDE18;QCDE19;QCDE20;QCDE21;QCDE22;QCDE23;QCDE24;QCDE25;QCDE26;QCDE27;QCDE28;QCDE29;QCDE30;QCDE31;QCDE32;QCDE33;QCDE34;QCDE35;QCDE36;QCDE37;QCDE38;QCDE39;QCDE40;QCDE41;QCDE42;QCDE43;QCDE44;QCDE45;QCDE46;QCDE47;QCDE48;QCDE49;QCDE50;QCDL02;QCDL03;QCDL04;QCDL05;QCDL06;QCDL07;QCDL08;QCDL09;QCDL10;QCME01;QCME02"
 duellist="QCDE01;QCDE02;QCDE05;QCDE06;QCDE08;QCDE09;QCDE10;QCDE11;QCDE14;QCDE15;QCDE16;QCDE18;QCDE19;QCDE20;QCDE21;QCDE22;QCDE23;QCDE24;QCDE26;QCDE27;QCDE28;QCDE29;QCDE30;QCDE32;QCDE35;QCDE37;QCDE39;QCDE40;QCDE41;QCDE42;QCDE45;QCDE46;QCDE48;QCDE50;QCDL02;QCDL03;QCDL04;QCDL05;QCDL06;QCDL07;QCDL09;QCDL10"
-communitylist=";QCCM03"
-communityduellist=""
+retiredlist=";QCRT01;QCRT02;QCRT03;QCRT04;QCRT05;QCRT06;QCRT07"
 aeonlist=";AEON01;AEON02;AEON03;AEON04;AEON05;AEON06;AEON07;AEON08;AEON09;AEON10;AEON11;AEON12;AEON13;AEON14;AEON15;AEON16;AEON17;AEON18;AEON19;AEON20;AEON21;AEON22;AEON23;AEON24;AEON25;AEON26;AEON27;AEON28;AEON29;AEON30;AEON31;AEON32;AEON33"
 neonlist=";NEON01;NEON02;NEON03;NEON04;NEON05;NEON06;NEON07;NEON08;NEON09;NEON10;NEON11;NEON12;NEON13;NEON14;NEON15"
 
@@ -163,7 +155,6 @@ function exit_handler() {
 function menu_engine() {
     whiptail --backtitle "$BTITLE" --title "Select engine" --noitem --menu " " $WINH $WINW $LSTH \
         "Q-Zandronum" "" \
-        "Q-Zandronum 1.2" "" \
         "Zandronum" "" \
         "Quit" ""
 }
@@ -174,7 +165,7 @@ function menu_gamemode() {
         "TDM" "" \
         "Duel" "" \
         "Survival" "" \
-	"ClanArena" "" \
+        "ClanArena" "" \
         "InstaGib" "" \
         "FreezeTag" "" \
         "LGPractice" "" \
@@ -277,23 +268,13 @@ fi
 case $engine in
     "Q-Zandronum")
         server_executable="$qZandronumPath"
-#        qcdemaps+=" $communitymaps"
-#        maplist+="$communitylist"
-        ;;
-
-    "Q-Zandronum 1.2")
-        server_executable="$qZandronumLegacyPath"
-        qcde="qcdev2.7.pk3"
-        qcdemaps="qcdemaps2.7.pk3"
-        qcdemus=""
-        wads_load_always+=" qcdeqzpatch2.7.pk3 newtextcolors_260.pk3"
-        wads_optional+=" qcdemus2.7.pk3"
-        additional_params+="+sv_playerspeed 85 +compat_disable_wall_friction 1"
+        qcdemaps+=" $retiredmaps"
+        maplist+="$retiredlist"
         ;;
 
     "Zandronum")
         server_executable="$zandronumPath"
-        qcde="qcdev2.7.pk3"
+        qcde="qcdev2.7c.pk3"
         qcdemaps="qcdemaps2.7.pk3"
         qcdemus=""
         wads_load_always+=" newtextcolors_260.pk3"
@@ -328,7 +309,7 @@ case $config in
 
     "Duel")
         useMapList=true
-        maplist=$duellist+$communityduellist
+        maplist=$duellist
         config="Gametype/Duel"
         additional_wads+=""
         additional_params+=""
@@ -358,15 +339,15 @@ case $config in
         ;;
 
     "ClanArena")
-	useMapList=true
-	config="Gametype/ClanArena"
-	additional_wads+="qcde--ca_patch3.0_beta23.pk3"
-	;;
+	    useMapList=true
+	    config="Gametype/ClanArena"
+	    additional_wads+="qcde--ca_patch3.0_beta23.pk3"
+	    ;;
 
     "InstaGib")
         useMapList=true
         config="Gametype/Instagib"
-        additional_wads+="qcde--lmsextensions_v1.01.pk3"
+        additional_wads+=""
         additional_params+="+addmap QCME01 +addmap QCME02"
         port=15966
         ;;
@@ -374,7 +355,7 @@ case $config in
     "FreezeTag")
         useMapList=true
         config="Gametype/FreezeTag"
-        additional_wads+="hypnobalance_v01.pk3 qcde--lmsextensions_v1.01.pk3"
+        additional_wads+="hypnobalance_v01.pk3"
         port=16066
         ;;
 
@@ -395,7 +376,7 @@ case $config in
         selected_themes=$(menu_themes)
 
         wads_load_always=${wads_load_always#"qcde_pvpvisibility.pk3"}
-        additional_wads+="qcdeinvasionmapsv0.3.pk3 "$monsters
+        additional_wads+=$monsters
         additional_params+="$selected_themes +map QCIN01"
 
         port=16266
@@ -411,8 +392,8 @@ case $config in
     "CTF")
         useMapList=false
         config="Gametype/CTF"
-        additional_wads+="qcde--qctf_v1.2.1.pk3 industronctfb3.1_hotfix.wad hypnobalance_v01.pk3 qcde--respawndelay_v1.0.pk3"
-        additional_params+="+addmap QCTF01 +addmap QCTF03 +addmap INDUS03 +addmap INDUS02 +map QCTF01"
+        additional_wads+="hypnobalance_v01.pk3"
+        additional_params+="+addmap QCTF01 +addmap QCTF02 +addmap QCTF03 +addmap QCTF04 +map QCTF01"
         port=16466
         ;;
 
@@ -459,15 +440,10 @@ for sel in $switches; do
         additional_wads+=" $utweapons $utmovement"
         wads_optional+=" $utweapons_hires"
         qcdemus=$utmus
-        voxels=$utvoxels
-        announcer=$utannouncer
         ;;
     "6")
         case "$server_executable" in 
         "$qZandronumPath")
-            ;;
-        "$qZandronumLegacyPath")
-            additional_wads+=" qcde--railjump-qzand_v1.3.pk3"
             ;;
         "$zandronumPath")
             additional_wads+=" qcde--railjump.pk3"
@@ -520,7 +496,7 @@ then
     iwad="DOOM2.WAD"
 fi
 
-args="-port $port -iwad $iwad -file $mapsets $qcde $qcdemaps $wads_load_always -optfile $qcdemus $announcer $wads_optional -file $additional_wads $map_list +exec $config $additional_params $starting_map"
+args="-port $port -iwad $iwad -file $mapsets $qcde $qcdemaps $wads_load_always -optfile $qcdemus $wads_optional -file $additional_wads $map_list +exec $config $additional_params $starting_map"
 
 export LD_LIBRARY_PATH=$(dirname $server_executable)
 
@@ -535,3 +511,4 @@ else
 fi
 
 unset NEWT_COLORS
+unset LD_LIBRARY_PATH
