@@ -278,7 +278,7 @@ case $engine in
         qcdemaps="qcdemaps2.7.pk3"
         qcdemus=""
         wads_load_always+=" newtextcolors_260.pk3"
-        wads_optional+=" qcdemus2.7.pk3"
+        wads_optional+=" qcdemus2.5.pk3"
         ;;
 
     "Quit"|*)
@@ -341,7 +341,7 @@ case $config in
     "ClanArena")
 	    useMapList=true
 	    config="Gametype/ClanArena"
-	    additional_wads+="qcde--ca_patch3.0_beta23.pk3"
+	    additional_wads+="qcde--ca_patch3.0.pk3"
 	    ;;
 
     "InstaGib")
