@@ -2,8 +2,8 @@
 
 #TODO: handle mapsets of more than 1 wads
 #TODO: check if files to be loaded exist, do not start the server if any wad is missing
-#TODO: drop legacy QZ
 
+clear
 trap "exit 1" 10
 PROC="$$"
 
@@ -23,11 +23,11 @@ wads_optional="qcde--frankfurtloadingscreen.pk3"
 
 qcde="qcdev3.0.pk3"
 qcdemaps="qcdemaps3.0.pk3"
-retiredmaps="qcde_retiredmaps_v18.pk3"
+retiredmaps="qcde_retiredmaps_v4.pk3"
 qcdemus="qcdemus3.0.pk3"
 
 utweapons="qcde_ut_weapons_v3.0.pk3"
-utweapons_hires="qcde_ut_weapons_v3.0_hires.pk3"
+utweapons_hires=""
 utmovement="qcde_ut_movement_v3.0.pk3"
 utmus="qcdemus_ut_v3.0.pk3"
 
