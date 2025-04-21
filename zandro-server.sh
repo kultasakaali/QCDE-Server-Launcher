@@ -23,6 +23,8 @@ wads_optional="qcde--frankfurtloadingscreen.pk3"
 
 qcde="qcdev3.0.pk3"
 qcdemaps="qcdemaps3.0.pk3"
+aeonqcde="aeonqcde3.0_beta4.pk3"
+neonqcde="neonqcde3.0_beta_5.pk3"
 retiredmaps="qcde_retiredmaps_v4.pk3"
 qcdemus="qcdemus3.0.pk3"
 
@@ -34,9 +36,9 @@ utmus="qcdemus_ut_v3.0.pk3"
 pve_maps_folder="/home/kulta/.config/zandronum/pvemaps"
 pve_monster_folder="/home/kulta/.config/zandronum/pvemons"
 
-maplist="QCDE01;QCDE02;QCDE04;QCDE05;QCDE06;QCDE07;QCDE08;QCDE09;QCDE10;QCDE11;QCDE13;QCDE14;QCDE15;QCDE16;QCDE17;QCDE18;QCDE19;QCDE20;QCDE21;QCDE22;QCDE23;QCDE24;QCDE25;QCDE26;QCDE27;QCDE28;QCDE29;QCDE30;QCDE31;QCDE32;QCDE33;QCDE34;QCDE35;QCDE36;QCDE37;QCDE38;QCDE39;QCDE40;QCDE41;QCDE42;QCDE43;QCDE44;QCDE45;QCDE46;QCDE47;QCDE48;QCDE49;QCDE50;QCDL02;QCDL03;QCDL04;QCDL05;QCDL06;QCDL07;QCDL08;QCDL09;QCDL10;QCDL13;QCME01;QCME02"
+maplist="QCDE01;QCDE02;QCDE03;QCDE04;QCDE05;QCDE06;QCDE07;QCDE08;QCDE09;QCDE10;QCDE11;QCDE13;QCDE14;QCDE15;QCDE16;QCDE17;QCDE18;QCDE19;QCDE20;QCDE21;QCDE22;QCDE23;QCDE24;QCDE25;QCDE26;QCDE27;QCDE28;QCDE29;QCDE30;QCDE31;QCDE32;QCDE33;QCDE34;QCDE35;QCDE36;QCDE37;QCDE38;QCDE39;QCDE40;QCDE41;QCDE42;QCDE43;QCDE44;QCDE45;QCDE46;QCDE47;QCDE48;QCDE49;QCDE50;QCDL02;QCDL03;QCDL04;QCDL05;QCDL06;QCDL07;QCDL09;QCDL10;QCDL13;QCME01;QCME02"
 duellist="QCDE01;QCDE02;QCDE05;QCDE06;QCDE08;QCDE09;QCDE10;QCDE11;QCDE14;QCDE15;QCDE16;QCDE18;QCDE19;QCDE20;QCDE21;QCDE22;QCDE23;QCDE24;QCDE26;QCDE27;QCDE28;QCDE29;QCDE30;QCDE32;QCDE35;QCDE37;QCDE39;QCDE40;QCDE41;QCDE42;QCDE45;QCDE46;QCDE48;QCDE50;QCDL02;QCDL03;QCDL04;QCDL05;QCDL06;QCDL07;QCDL09;QCDL10;QCDL13"
-retiredlist=";QCRT01;QCRT02;QCRT03;QCRT04;QCRT05;QCRT06;QCRT07"
+retiredlist=";QCRT01;QCRT07"
 aeonlist=";AEON01;AEON02;AEON03;AEON04;AEON05;AEON06;AEON07;AEON08;AEON09;AEON10;AEON11;AEON12;AEON13;AEON14;AEON15;AEON16;AEON17;AEON18;AEON19;AEON20;AEON21;AEON22;AEON23;AEON24;AEON25;AEON26;AEON27;AEON28;AEON29;AEON30;AEON31;AEON32;AEON33"
 neonlist=";NEON01;NEON02;NEON03;NEON04;NEON05;NEON06;NEON07;NEON08;NEON09;NEON10;NEON11;NEON12;NEON13;NEON14;NEON15"
 
@@ -98,16 +100,19 @@ while [[ $# -gt 0 ]]; do
       switches+=" 2"
       shift
       ;;
-    --StackLeft)
+    --RetiredMaps)
       switches+=" 3"
       shift
-      ;;
-    --ItemTimers)
+    --StackLeft)
       switches+=" 4"
       shift
       ;;
-    --UTWeapons)
+    --ItemTimers)
       switches+=" 5"
+      shift
+      ;;
+    --UTWeapons)
+      switches+=" 6"
       shift
       ;;
     -*|--*)
@@ -247,12 +252,13 @@ function menu_switches() {
     whiptail --backtitle "$BTITLE" --title "Choose additional options" --separate-output --checklist " " $WINH $WINW $LSTH \
         "1" "AeonDM" OFF \
         "2" "NeonDM" OFF \
-        "3" "StackLeft" ON \
-        "4" "ItemTimers" ON \
-        "5" "UT Weapons" OFF \
-        "6" "RailJump" OFF \
-        "7" "RandomChampions" OFF \
-        "8" "RandomRocketArena" OFF
+        "3" "RetiredMaps" ON \
+        "4" "StackLeft" ON \
+        "5" "ItemTimers" ON \
+        "6" "UT Weapons" OFF \
+        "7" "RailJump" OFF \
+        "8" "RandomChampions" OFF \
+        "9" "RandomRocketArena" OFF
 
     if [[ $? == 255 ]];
     then
@@ -268,17 +274,15 @@ fi
 case $engine in
     "Q-Zandronum")
         server_executable="$qZandronumPath"
-        qcdemaps+=" $retiredmaps"
-        maplist+="$retiredlist"
         ;;
 
     "Zandronum")
         server_executable="$zandronumPath"
         qcde="qcdev2.7c.pk3"
         qcdemaps="qcdemaps2.7.pk3"
-        qcdemus=""
+        qcdemus="qcdemus2.7.pk3"
         wads_load_always+=" newtextcolors_260.pk3"
-        wads_optional+=" qcdemus2.7.pk3"
+        wads_optional+=""
         ;;
 
     "Quit"|*)
@@ -421,6 +425,9 @@ for sel in $switches; do
         useNeon=true
         ;;
     "3")
+        useRetired=true
+        ;;
+    "4")
         if [ "$server_executable" == "$qZandronumPath" ];
         then
             stackleft=1
@@ -428,7 +435,7 @@ for sel in $switches; do
             additional_wads+=" qcde--stackleft.pk3"
         fi
         ;;
-    "4")
+    "5")
         if [ "$server_executable" == "$qZandronumPath" ];
         then
             itemtimers=1
@@ -436,12 +443,12 @@ for sel in $switches; do
             additional_wads+=" qcde_megaarmorstimers_2.5.1.pk3"
         fi
         ;;
-    "5")
+    "6")
         additional_wads+=" $utweapons $utmovement"
         wads_optional+=" $utweapons_hires"
         qcdemus=$utmus
         ;;
-    "6")
+    "7")
         case "$server_executable" in 
         "$qZandronumPath")
             ;;
@@ -450,10 +457,10 @@ for sel in $switches; do
             ;;
         esac
         ;;
-    "7")
+    "8")
         additional_wads+=" qcde--randomchampion_v1.26.pk3"
         ;;
-    "8")
+    "9")
         additional_wads+=" qcde--randomrocketarena_v1.02.pk3"
         ;;
     esac
@@ -466,14 +473,20 @@ fi
 
 if [ "$useAeon" == "true" ];
 then
-    qcdemaps+=" aeonqcde3.0_beta4.pk3"
+    qcdemaps+=" $aeonqcde"
     maplist+=$aeonlist
 fi
 
 if [ "$useNeon" == "true" ];
 then
-    qcdemaps+=" neonqcde3.0_beta_5.pk3"
+    qcdemaps+=" $neonqcde"
     maplist+=$neonlist
+fi
+
+if [ "$useRetired" == "true" ];
+then
+    qcdemaps+=" $retiredmaps"
+    maplist+=$retiredlist
 fi
 
 if [ "$useMapList" == "true" ];
