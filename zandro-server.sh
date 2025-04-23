@@ -103,6 +103,7 @@ while [[ $# -gt 0 ]]; do
     --RetiredMaps)
       switches+=" 3"
       shift
+      ;;
     --StackLeft)
       switches+=" 4"
       shift
