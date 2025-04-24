@@ -132,12 +132,12 @@ function parse_maplist() {
 
     for map in "${maps[@]}"
     do
-        load_maps+=" +addmap $map"
+        maplist_maps+=" +addmap $map"
     done
 
     random_map=${maps[RANDOM%${#maps[@]}]}
 
-    echo "$random_map|$load_maps"
+    echo "$random_map|$maplist_maps"
 }
 
 function scan_folder() {
