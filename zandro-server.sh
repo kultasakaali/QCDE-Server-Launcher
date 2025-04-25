@@ -33,6 +33,7 @@ utweapons_hires=""
 utmovement="qcde_ut_movement_v3.0.pk3"
 utmus="qcdemus_ut_v3.0.pk3"
 
+wads_folder="/home/kulta/.config/zandronum"
 pve_maps_folder="/home/kulta/.config/zandronum/pvemaps"
 pve_monster_folder="/home/kulta/.config/zandronum/pvemons"
 
@@ -138,6 +139,60 @@ function parse_maplist() {
     random_map=${maps[RANDOM%${#maps[@]}]}
 
     echo "$random_map|$maplist_maps"
+}
+
+function validate_files() {
+    missing_wads=()
+    echo $'\e[33m\nValidating files...\e[39m\n\n'
+    
+    IFS=' ' read -r -a command_line <<< "$args"
+
+    for segment in "${command_line[@]}"
+    do
+        lc_segment=$(echo $segment | tr '[:upper:]' '[:lower:]')
+        if [[ $lc_segment =~ ".pk3" ]] || [[ $lc_segment =~ ".wad" ]];
+        then
+            if ! [[ $(find "$wads_folder" -name "$segment") ]];
+            then
+                missing_wads+=("$segment")
+            fi
+        fi
+    done
+
+    if [[ ${#missing_wads[@]} == 0 ]];
+    then
+        true
+    else
+        if (whiptail --backtitle "$BTITLE" --title "File(s) missing" --yesno "Some files selected for loading could not be found.\nWould you like to try and download them automatically?" $WINH $WINW);
+        then
+            for file in "${missing_wads[@]}"
+            do
+                wget_return=$(tspg-get "$file")
+                if [[ $wget_return != "wget failure (0)" ]];
+                then
+                    whiptail --backtitle "$BTITLE" --title "Download error!" --msgbox "Could not download $file\nPlease check if the specified file name is correct." $WINH $WINW
+                    false
+                else
+                    true
+                fi
+            done
+        elif whiptail --backtitle "$BTITLE" --title "File(s) missing" --yesno "Would you like to start the server anyway?" $WINH $WINW;
+        then
+            true
+        else
+            false
+        fi
+    fi
+}
+
+function start_server() {
+    if validate_files;
+    then
+        echo $'\e[33m\nFiles validated, starting server...\e[39m\n\n'
+        $server_executable $args $POSITIONAL_ARGS
+    else
+        echo $'\e[33m\nAn error occured, the server could not be started.\e[39m\n\n'
+    fi
 }
 
 function scan_folder() {
@@ -495,7 +550,7 @@ then
     IFS="|" read -r -a parsedMaps <<< $(parse_maplist)
     map_list=${parsedMaps[1]}
     starting_map="+map ${parsedMaps[0]}"
-elif [ "$requires_qcdemaps" != "true" ]
+elif [ "$requires_qcdemaps" != "true" ];
 then
     qcdemaps=""
 fi
@@ -514,14 +569,17 @@ args="-port $port -iwad $iwad -file $mapsets $qcde $qcdemaps $wads_load_always -
 
 export LD_LIBRARY_PATH=$(dirname $server_executable)
 
-if [[ $ran_with_args -ne 1 ]] && whiptail --backtitle "$BTITLE" --title "Would you like to edit the command line?" --yesno " " $WINH $WINW; then
+if [[ $ran_with_args -ne 1 ]] && (whiptail --backtitle "$BTITLE" --title "Would you like to edit the command line?" --yesno " " $WINH $WINW);
+then
     clear
     read -e -p $'\e[33m\nEdit command line parameters:\e[39m\n\n' -i "$args" args
-    $server_executable $args
+
+    start_server
 else
     clear
     echo -e "\n$server_executable $args\n"
-    $server_executable $args $POSITIONAL_ARGS
+
+    start_server
 fi
 
 unset NEWT_COLORS
