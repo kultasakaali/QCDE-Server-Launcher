@@ -6,12 +6,14 @@ mkdir -p "${TARGET_DIR}"
 
 if [[ -f "$TARGET_PATH" ]]; then
     echo "$TARGET_PATH already exists."
+    exit 0
 else
     USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0"
     wget -U "${USER_AGENT}" https://allfearthesentinel.com/zandronum/download.php?file="${WADNAME}" -O"${TARGET_PATH}"
     WGET_RESULT="$?"
-    echo "wget failure ($WGET_RESULT)"
+    >&2 echo "wget failure ($WGET_RESULT)"
     if [[ $WGET_RESULT -ne 0 ]]; then
         rm "${TARGET_PATH}"
     fi
+    exit $WGET_RESULT
 fi
