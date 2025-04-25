@@ -11,8 +11,8 @@ WINW=56
 LSTH=8
 
 #engines
-zandronumPath="/home/kulta/zandronum/zandronum-server"
-qZandronumPath="/home/kulta/q-zandronum/q-zandronum-server"
+zandronumPath="${HOME}/zandronum/zandronum-server"
+qZandronumPath="${HOME}/q-zandronum/q-zandronum-server"
 
 #configuration
 wads_load_always="qcde_pvpvisibility.pk3"
@@ -30,9 +30,9 @@ utweapons_hires=""
 utmovement="qcde_ut_movement_v3.0.pk3"
 utmus="qcdemus_ut_v3.0.pk3"
 
-wads_folder="/home/kulta/.config/zandronum"
-pve_maps_folder="/home/kulta/.config/zandronum/pvemaps"
-pve_monster_folder="/home/kulta/.config/zandronum/pvemons"
+wads_folder="${HOME}/.config/zandronum"
+pve_maps_folder="${HOME}/.config/zandronum/pvemaps"
+pve_monster_folder="${HOME}/.config/zandronum/pvemons"
 
 maplist="QCDE01;QCDE02;QCDE03;QCDE04;QCDE05;QCDE06;QCDE07;QCDE08;QCDE09;QCDE10;QCDE11;QCDE13;QCDE14;QCDE15;QCDE16;QCDE17;QCDE18;QCDE19;QCDE20;QCDE21;QCDE22;QCDE23;QCDE24;QCDE25;QCDE26;QCDE27;QCDE28;QCDE29;QCDE30;QCDE31;QCDE32;QCDE33;QCDE34;QCDE35;QCDE36;QCDE37;QCDE38;QCDE39;QCDE40;QCDE41;QCDE42;QCDE43;QCDE44;QCDE45;QCDE46;QCDE47;QCDE48;QCDE49;QCDE50;QCDL02;QCDL03;QCDL04;QCDL05;QCDL06;QCDL07;QCDL09;QCDL10;QCDL13;QCME01;QCME02"
 duellist="QCDE01;QCDE02;QCDE05;QCDE06;QCDE08;QCDE09;QCDE10;QCDE11;QCDE14;QCDE15;QCDE16;QCDE18;QCDE19;QCDE20;QCDE21;QCDE22;QCDE23;QCDE24;QCDE26;QCDE27;QCDE28;QCDE29;QCDE30;QCDE32;QCDE35;QCDE37;QCDE39;QCDE40;QCDE41;QCDE42;QCDE45;QCDE46;QCDE48;QCDE50;QCDL02;QCDL03;QCDL04;QCDL05;QCDL06;QCDL07;QCDL09;QCDL10;QCDL13"
