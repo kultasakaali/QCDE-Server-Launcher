@@ -1,8 +1,5 @@
 #!/bin/bash
 
-#TODO: handle mapsets of more than 1 wads
-#TODO: check if files to be loaded exist, do not start the server if any wad is missing
-
 clear
 trap "exit 1" 10
 PROC="$$"
