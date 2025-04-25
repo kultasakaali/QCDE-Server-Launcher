@@ -164,8 +164,7 @@ function validate_files() {
         then
             for file in "${missing_wads[@]}"
             do
-                wget_return=$(tspg-get "$file")
-                if [[ $wget_return != "wget failure (0)" ]];
+                if ! tspg-get "$file";
                 then
                     whiptail --backtitle "$BTITLE" --title "Download error!" --msgbox "Could not download $file\nPlease check if the specified file name is correct." $WINH $WINW
                     false
