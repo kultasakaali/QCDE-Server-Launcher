@@ -1,0 +1,124 @@
+** What is this and why is it here? **
+
+In Zandronum 3.1 (beta at the moment) you can no longer use console aliases defined for QCDE gamemodes 
+like "qcde_ffa" or "qcde_duel" to set up games quickly. So we've added this folder with all the configs
+needed to do set them up quickly. You can do this same method in Zandronum 3.0
+
+
+** How to use? **
+
+This folder "Gametype" should be copied into your Zandronum installation directory. Then, when you're 
+playing QCDE, type in console "exec gametype/deathmatch" or "exec gametype/duel" for example. This will 
+automatically apply all the needed cvars to set up the game type that you wish to play be that in
+offline matches, or in hosted games if you're the admin.
+
+
+** What gamemodes are available? **
+
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+//
+//                 GENERAL PVP
+//
+// "fraglimit #" to change frags to win
+// "timelimit #" to change minutes before game ends
+//
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+
+  CONSOLE COMMAND                GAMEMODE
+
+exec gametype/Deathmatch       Free For All. Highest fragger wins.
+
+exec gametype/Duel             1v1 with QC's rules for item and player respawn.
+                                 "duellimit #" to change how many duels in the same map before changing
+
+exec gametype/EldersSoul       Pick the soul to get unlimited quad damage. Whoever kills you gets 10 frags or
+                               if you suicide, you lose 10 frags. Carrier's stack degenerates quickly.
+
+exec gametype/LMS              Last Man Standing. Limited lives. Last player alive wins.
+                                 "sv_maxlives #" to change lives per round
+                                 "winlimit #" to change how many rounds to win the map
+
+
+
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+//
+//                 WEAPON MODES / COMBOS
+//
+// "fraglimit #" to change frags to win
+// "timelimit #" to change minutes before game ends
+//
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+
+  CONSOLE COMMAND                GAMEMODE
+
+exec gametype/BuckShot          Unlimited Super Shotgun 
+
+exec gametype/RocketArena       Unlimited Rocket Launcher
+
+exec gametype/ShaftParty        Unlimited Lightning Gun
+
+exec gametype/Instagib          Unlimited Railgun, one hit one kill
+
+exec gametype/UnholyTrinity     Unlimited Rocket, Rail and LG
+
+exec gametype/LoadoutMap        Random Loadout per map. All players get the same loadout
+
+exec gametype/LoadoutLife       Random Loadout per life. Players get random weapons on every respawn
+
+
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+//
+//                 TEAM MODES
+//
+// "timelimit #" to change minutes before game ends
+//
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+
+  CONSOLE COMMAND                GAMEMODE
+
+exec gametype/CTF              Capture The Flag. Get the enemy's flag into your base and score points.
+                                 "pointlimit #" how many points for the round to end
+
+exec gametype/TeamDeathMatch   Team variation of "Deathmatch". Team with most frags wins
+
+exec gametype/TeamEldersSoul   Team variation of "EldersSoul". 
+
+exec gametype/FreezeTag        Defeated enemies become frozen until a team mate thaws them by standing
+                               right next to them. A fully frozen team loses.
+                                 "winlimit #" to change how many rounds to win the map
+
+exec gametype/Domination       Control map points by standing near them. First team to reach the score
+                               limit wins the round. **REQUIRES DOMINATION SPECIFIC MAPS**. 
+							   One such mapset is "sfm-dom.pk3" 
+                                 "pointlimit #" to change score to win
+
+exec gametype/SkullTag         Bring the frag tokens to the pillars. First to reach the score limit
+                               wins the round. **REQUIRES SKULLTAG SPECIFIC MAPS**. 
+							   One such mapset is "skulltag_content-3.0-beta01.pk3"
+                                 "pointlimit #" to change score to win
+
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+//
+//                 PVE MODES
+//
+//-----------------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+
+  CONSOLE COMMAND                GAMEMODE
+
+exec gametype/Coop            Cooperative
+
+exec gametype/Survival        Cooperative with limited lives
+                                "sv_maxlives #" to change lives per map
+
+exec gametype/Invasion        Monsters spawn in waves, survive all waves to win
+
+exec gametype/InvasionSurv    Same as invasion, but with limited lives
+                                "sv_maxlives #" to change lives per map

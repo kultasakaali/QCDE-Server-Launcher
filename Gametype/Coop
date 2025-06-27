@@ -1,0 +1,32 @@
+sv_spawnfarthest true
+sv_weaponstay false
+sv_weapondrop true
+sv_itemrespawn true
+sv_nocrouch false
+sv_allowjump true
+sv_allowcrouch true
+sv_awarddamageinsteadkills true
+sv_forcerespawn true
+sv_forcerespawntime 10
+sv_unblockallies true
+sv_sharekeys true
+compat_instantrespawn false
+
+ sv_playerSpeed 100
+ deathmatch 0
+ duel 0
+ lastmanstanding 0
+ teamplay 0
+ teamlms 0
+ domination 0
+ skulltag 0
+ ctf 0
+ instagib 0
+ rocketarena 0
+ buckshot 0
+ cooperative 1
+ survival 0
+ invasion 0
+ qc_elderssoul 0
+ qc_freezetag  0
+ echo \ckCooperative set up. Use `\cvmap <...>\ck` to apply."
