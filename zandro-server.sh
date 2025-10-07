@@ -15,15 +15,17 @@ zandronumPath="${HOME}/zandronum/zandronum-server"
 qZandronumPath="${HOME}/q-zandronum/q-zandronum-server"
 
 #configuration
-wads_load_always="qcde_pvpvisibility.pk3"
+wads_load_always="qcde_pvpvisibility3.0_testing1.pk3"
 wads_optional="qcde--frankfurtloadingscreen.pk3"
 
 qcde="qcdev3.0.pk3"
 qcdemaps="qcdemaps3.0.pk3"
 aeonqcde="aeonqcde3.0_beta4.pk3"
-neonqcde="neonqcde3.0_beta_5.pk3"
+neonqcde="neonqcde3.0.pk3"
 retiredmaps="qcde_retiredmaps_v4.pk3"
 qcdemus="qcdemus3.0.pk3"
+
+community_balance="qcde--3.0_frankfurt_boomer_balance_v0.5.pk3"
 
 utweapons="qcde_ut_weapons_v3.0.pk3"
 utweapons_hires=""
@@ -310,7 +312,8 @@ function menu_switches() {
         "6" "UT Weapons" OFF \
         "7" "RailJump" OFF \
         "8" "RandomChampions" OFF \
-        "9" "RandomRocketArena" OFF
+        "9" "RandomRocketArena" OFF \
+        "10" "Community Balance" OFF
 
     if [[ $? == 255 ]];
     then
@@ -501,7 +504,7 @@ for sel in $switches; do
         qcdemus=$utmus
         ;;
     "7")
-        case "$server_executable" in 
+        case "$server_executable" in
         "$qZandronumPath")
             ;;
         "$zandronumPath")
@@ -510,10 +513,13 @@ for sel in $switches; do
         esac
         ;;
     "8")
-        additional_wads+=" qcde--randomchampion_v1.26.pk3"
+        additional_wads+=" qcde--randomchampion_v1.3.pk3"
         ;;
     "9")
         additional_wads+=" qcde--randomrocketarena_v1.02.pk3"
+        ;;
+    "10")
+        additional_wads+=" $community_balance"
         ;;
     esac
 done
