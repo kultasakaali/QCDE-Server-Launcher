@@ -262,7 +262,7 @@ function menu_themes() {
 
     for (( i=0; i<=$themes_total; i++ ))
     do
-        if [ $i -gt 4 ];
+        if [[ $i -gt 4 ]];
         then
             on_off="ON"
         fi
@@ -293,7 +293,7 @@ function menu_themes() {
             fi
         done
 
-        if [ $match == false ];
+        if [[ $match == false ]];
         then
             theme_params+="+theme$i 0 "
         fi
@@ -322,7 +322,7 @@ function menu_switches() {
 }
 
 # open menu if $engine is unset or empty string
-if [ -z ${engine} ]; then
+if [[ -z ${engine} ]]; then
  engine=$(menu_engine 3>&1 1>&2 2>&3)
 fi
 
@@ -346,7 +346,7 @@ case $engine in
 esac
 
 # open menu if $config is unset or empty string
-if [ -z ${config} ]; then
+if [[ -z ${config} ]]; then
   config=$(menu_gamemode 3>&1 1>&2 2>&3)
 fi
 
@@ -379,15 +379,15 @@ case $config in
         useMapList=false
         config="Gametype/Survival"
 
-        if [ -z ${mapsets+x} ]; then
+        if [[ -z ${mapsets+x} ]]; then
           mapsets=$(menu_mapset 3>&1 1>&2 2>&3)
         fi
 
-        if [ -z ${monsters+x} ]; then
+        if [[ -z ${monsters+x} ]]; then
           monsters=$(menu_monsters 3>&1 1>&2 2>&3 | tr -d '"')
         fi
 
-        if [ -z ${selected_themes+x} ]; then
+        if [[ -z ${selected_themes+x} ]]; then
           selected_themes=$(menu_themes)
         fi
 
@@ -463,7 +463,7 @@ esac
 
 
 # open menu if $switches is unset: when no command line arguments are passed
-if [ -z ${switches+x} ]; then
+if [[ -z ${switches+x} ]]; then
  switches=$(menu_switches 3>&1 1>&2 2>&3)
 fi
 
@@ -524,45 +524,45 @@ for sel in $switches; do
     esac
 done
 
-if [ "$server_executable" == "$qZandronumPath" ];
+if [[ "$server_executable" == "$qZandronumPath" ]];
 then
     additional_params+=" +sv_showStackLeft $stackleft +sv_showItemTimers $itemtimers"
 fi
 
-if [ "$useAeon" == "true" ];
+if [[ "$useAeon" == "true" ]];
 then
     qcdemaps+=" $aeonqcde"
     maplist+=$aeonlist
 fi
 
-if [ "$useNeon" == "true" ];
+if [[ "$useNeon" == "true" ]];
 then
     qcdemaps+=" $neonqcde"
     maplist+=$neonlist
 fi
 
-if [ "$useRetired" == "true" ];
+if [[ "$useRetired" == "true" ]];
 then
     qcdemaps+=" $retiredmaps"
     maplist+=$retiredlist
 fi
 
-if [ "$useMapList" == "true" ];
+if [[ "$useMapList" == "true" ]];
 then
     IFS="|" read -r -a parsedMaps <<< $(parse_maplist)
     map_list=${parsedMaps[1]}
     starting_map="+map ${parsedMaps[0]}"
-elif [ "$requires_qcdemaps" != "true" ];
+elif [[ "$requires_qcdemaps" != "true" ]];
 then
     qcdemaps=""
 fi
 
-if [ "$server_executable" == "$zandronumPath" ];
+if [[ "$server_executable" == "$zandronumPath" ]];
 then
     let port+=50
 fi
 
-if [ -z "${iwad}" ];
+if [[ -z "${iwad}" ]];
 then
     iwad="DOOM2.WAD"
 fi
