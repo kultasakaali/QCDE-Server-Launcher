@@ -128,6 +128,12 @@ while [[ $# -gt 0 ]]; do
 done
 
 function parse_maplist() {
+
+    local map
+    local maps
+    local maplist_maps
+    local random_map
+
     IFS=';' read -r -a maps <<< "$maplist"
 
     for map in "${maps[@]}"
@@ -141,7 +147,12 @@ function parse_maplist() {
 }
 
 function validate_files() {
-    missing_wads=()
+
+    local segment
+    local lc_segment
+    local -a command_line
+    local -a missing_wads
+    
     echo $'\e[33m\nValidating files...\e[39m\n\n'
     
     IFS=' ' read -r -a command_line <<< "$args"
@@ -194,8 +205,10 @@ function start_server() {
 }
 
 function scan_folder() {
+    
+    local i=0
+    
     cd $1
-    i=0
     for f in *.*
     do
         files[i]="$f"
@@ -255,6 +268,16 @@ function menu_monsters() {
 
 function menu_themes() {
 
+    local -a loaded_themes
+    local -a theme_selection
+    local themes_total
+    local theme_params
+    local theme_list
+    local on_off
+    local match
+    local i
+    local j
+
     read -a loaded_themes <<< "$monsters"
 
     on_off="OFF"
@@ -267,10 +290,10 @@ function menu_themes() {
             on_off="ON"
         fi
 
-        themelist+="$i theme$i $on_off "
+        theme_list+="$i theme$i $on_off "
     done
 
-    theme_selection=$(whiptail --backtitle "$BTITLE" --title "Select themes" --checklist " " $WINH $WINW $LSTH ${themelist[@]} 3>&1 1>&2 2>&3)
+    theme_selection=$(whiptail --backtitle "$BTITLE" --title "Select themes" --checklist " " $WINH $WINW $LSTH ${theme_list[@]} 3>&1 1>&2 2>&3)
 
     if [[ $? == 255 ]];
     then
