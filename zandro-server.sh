@@ -559,7 +559,7 @@ fi
 
 if [[ "$server_executable" == "$zandronumPath" ]];
 then
-    let port+=50
+    (( port+=50 ))
 fi
 
 if [[ -z "${iwad}" ]];
