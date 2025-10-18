@@ -25,7 +25,7 @@ neonqcde="neonqcde3.0.pk3"
 retiredmaps="qcde_retiredmaps_v4.pk3"
 qcdemus="qcdemus3.0.pk3"
 
-community_balance="qcde--3.0_frankfurt_boomer_balance_v0.5.pk3"
+community_balance="qcde--3.0_frankfurt_boomer_balance_v0.6.pk3"
 
 utweapons="qcde_ut_weapons_v3.0.pk3"
 utweapons_hires=""
@@ -272,7 +272,6 @@ function menu_themes() {
     local -a theme_selection
     local themes_total
     local theme_params
-    local theme_list
     local on_off
     local match
     local i
@@ -290,10 +289,10 @@ function menu_themes() {
             on_off="ON"
         fi
 
-        theme_list+="$i theme$i $on_off "
+        themelist+="$i theme$i $on_off "
     done
 
-    theme_selection=$(whiptail --backtitle "$BTITLE" --title "Select themes" --checklist " " $WINH $WINW $LSTH ${theme_list[@]} 3>&1 1>&2 2>&3)
+    theme_selection=$(whiptail --backtitle "$BTITLE" --title "Select themes" --checklist " " $WINH $WINW $LSTH ${themelist[@]} 3>&1 1>&2 2>&3)
 
     if [[ $? == 255 ]];
     then
@@ -590,7 +589,9 @@ then
     iwad="DOOM2.WAD"
 fi
 
-args="-port $port -iwad $iwad -file $mapsets $qcde $qcdemaps $wads_load_always -optfile $qcdemus $wads_optional -file $additional_wads $map_list +exec $config $additional_params $starting_map"
+args="-port $port -iwad $iwad -file $mapsets $qcde $qcdemaps $wads_load_always\
+ -optfile $qcdemus $wads_optional -file $additional_wads $map_list\
+ +exec $config $additional_params $starting_map"
 
 export LD_LIBRARY_PATH=$(dirname $server_executable)
 
