@@ -413,7 +413,7 @@ case $config in
           selected_themes=$(menu_themes)
         fi
 
-        wads_load_always=${wads_load_always#"qcde_pvpvisibility.pk3"}
+        wads_load_always=${wads_load_always#"qcde_pvpvisibility3.0_testing1.pk3"}
         additional_wads+=$monsters
         additional_params+="$selected_themes +map MAP01"
         port=16566
@@ -456,7 +456,7 @@ case $config in
         monsters=$(menu_monsters 3>&1 1>&2 2>&3 | tr -d '"')
         selected_themes=$(menu_themes)
 
-        wads_load_always=${wads_load_always#"qcde_pvpvisibility.pk3"}
+        wads_load_always=${wads_load_always#"qcde_pvpvisibility3.0_testing1.pk3"}
         additional_wads+=$monsters
         additional_params+="$selected_themes +map QCIN01"
 
