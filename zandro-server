@@ -414,7 +414,7 @@ case $config in
         fi
 
         wads_load_always=${wads_load_always#'qcde_pvpvisibility3.0_testing1.pk3'}
-        additional_wads+=$monsters
+        additional_wads+=${monsters//\"}
         additional_params+="$selected_themes +map MAP01"
         port=16566
         ;;
@@ -453,11 +453,11 @@ case $config in
         useMapList=false
         config='Gametype/InvasionSurv'
 
-        monsters=$(menu_monsters 3>&1 1>&2 2>&3 | tr -d '"')
+        monsters=$(menu_monsters 3>&1 1>&2 2>&3)
         selected_themes=$(menu_themes)
 
         wads_load_always=${wads_load_always#'qcde_pvpvisibility3.0_testing1.pk3'}
-        additional_wads+=$monsters
+        additional_wads+=${monsters//\"}
         additional_params+="$selected_themes +map QCIN01"
 
         port=16266
@@ -598,7 +598,6 @@ export LD_LIBRARY_PATH=$(dirname $server_executable)
 if [[ $ran_with_args -ne 1 ]] && (whiptail --backtitle "$BTITLE" --title 'Would you like to edit the command line?' --yesno ' ' $WINH $WINW);
 then
     clear
-    echo "$monsters"
     read -e -p $'\e[33m\nEdit command line parameters:\e[39m\n\n' -i "$args" args
 
     start_server
