@@ -136,7 +136,7 @@ function validate_files() {
 
     for segment in "${command_line[@]}"
     do
-        lc_segment=$(echo $segment | tr '[:upper:]' '[:lower:]')
+        lc_segment=${segment,,}
         if [[ $lc_segment =~ '.pk3' ]] || [[ $lc_segment =~ '.wad' ]];
         then
             if ! [[ $(find "$wads_folder" -name "$segment") ]];
