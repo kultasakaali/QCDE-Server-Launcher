@@ -113,8 +113,7 @@ function parse_maplist() {
 
     IFS=';' read -r -a maps <<< "$maplist"
 
-    for map in "${maps[@]}"
-    do
+    for map in "${maps[@]}"; do
         maplist_maps+=" +addmap $map"
     done
 
@@ -134,36 +133,28 @@ function validate_files() {
     
     IFS=' ' read -r -a command_line <<< "$args"
 
-    for segment in "${command_line[@]}"
-    do
+    for segment in "${command_line[@]}"; do
         lc_segment=${segment,,}
-        if [[ $lc_segment =~ '.pk3' ]] || [[ $lc_segment =~ '.wad' ]];
-        then
-            if ! [[ $(find "$wads_folder" -name "$segment") ]];
-            then
+        if [[ $lc_segment =~ '.pk3' ]] || [[ $lc_segment =~ '.wad' ]]; then
+            if ! [[ $(find "$wads_folder" -name "$segment") ]]; then
                 missing_wads+=("$segment")
             fi
         fi
     done
 
-    if [[ ${#missing_wads[@]} == 0 ]];
-    then
+    if [[ ${#missing_wads[@]} == 0 ]]; then
         true
     else
-        if (whiptail --backtitle "$BTITLE" --title 'File(s) missing' --yesno 'Some files selected for loading could not be found.\nWould you like to try and download them automatically?' $WINH $WINW);
-        then
-            for file in "${missing_wads[@]}"
-            do
-                if ! tspg-get "$file";
-                then
+        if (whiptail --backtitle "$BTITLE" --title 'File(s) missing' --yesno 'Some files selected for loading could not be found.\nWould you like to try and download them automatically?' $WINH $WINW); then
+            for file in "${missing_wads[@]}"; do
+                if ! tspg-get "$file"; then
                     whiptail --backtitle "$BTITLE" --title 'Download error!' --msgbox "Could not download $file\nPlease check if the specified file name is correct." $WINH $WINW
                     false
                 else
                     true
                 fi
             done
-        elif whiptail --backtitle "$BTITLE" --title 'File(s) missing' --yesno 'Would you like to start the server anyway?' $WINH $WINW;
-        then
+        elif whiptail --backtitle "$BTITLE" --title 'File(s) missing' --yesno 'Would you like to start the server anyway?' $WINH $WINW; then
             true
         else
             false
@@ -172,8 +163,7 @@ function validate_files() {
 }
 
 function start_server() {
-    if validate_files;
-    then
+    if validate_files; then
         echo $'\e[33m\nFiles validated, starting server...\e[39m\n\n'
         $server_executable $args $POSITIONAL_ARGS
     else
@@ -187,8 +177,7 @@ function scan_folder() {
     local i=0
     
     cd $1
-    for f in *.*
-    do
+    for f in *.*; do
         files[i]="$f"
         files[i+1]=' '
         (( i+=2 ))
@@ -228,8 +217,7 @@ function menu_mapset() {
     scan_folder $pve_maps_folder
     whiptail --backtitle "$BTITLE" --title 'Select mapset' --menu ' ' $WINH $WINW $LSTH "${files[@]}"
 
-    if [[ $? == 255 ]];
-    then
+    if [[ $? == 255 ]]; then
         exit_handler
     fi
 }
@@ -238,8 +226,7 @@ function menu_monsters() {
     scan_folder $pve_monster_folder
     whiptail --backtitle "$BTITLE" --title 'Select monster sets' --noitem --checklist ' ' $WINH $WINW $LSTH "${files[@]}"
 
-    if [[ $? == 255 ]];
-    then
+    if [[ $? == 255 ]]; then
         exit_handler
     fi
 }
@@ -260,10 +247,8 @@ function menu_themes() {
     on_off='OFF'
     themes_total=4+${#loaded_themes[@]}
 
-    for (( i=0; i<=$themes_total; i++ ))
-    do
-        if [[ $i -gt 4 ]];
-        then
+    for (( i=0; i<=$themes_total; i++ )); do
+        if [[ $i -gt 4 ]]; then
             on_off='ON'
         fi
 
@@ -272,29 +257,24 @@ function menu_themes() {
 
     theme_selection=$(whiptail --backtitle "$BTITLE" --title 'Select themes' --checklist ' ' $WINH $WINW $LSTH ${themelist[@]} 3>&1 1>&2 2>&3)
 
-    if [[ $? == 255 ]];
-    then
+    if [[ $? == 255 ]]; then
         exit_handler
     fi
 
-    for (( i=0; i<=$themes_total; i++ ))
-    do
+    for (( i=0; i<=$themes_total; i++ )); do
         match=false
 
-        for j in ${theme_selection[@]}
-        do
+        for j in ${theme_selection[@]}; do
             eval j=$j
 
-            if [[ $i == $j ]];
-            then
+            if [[ $i == $j ]]; then
                 theme_params+="+theme$i 1 "
                 match=true
                 break
             fi
         done
 
-        if [[ $match == false ]];
-        then
+        if [[ $match == false ]]; then
             theme_params+="+theme$i 0 "
         fi
     done
@@ -315,8 +295,7 @@ function menu_switches() {
         '9' 'RandomRocketArena' OFF \
         '10' 'Community Balance' OFF
 
-    if [[ $? == 255 ]];
-    then
+    if [[ $? == 255 ]]; then
         exit_handler
     fi
 }
@@ -483,16 +462,14 @@ for sel in $switches; do
         useRetired=true
         ;;
     '4')
-        if [ "$server_executable" == "$qZandronumPath" ];
-        then
+        if [ "$server_executable" == "$qZandronumPath" ]; then
             stackleft=1
         else
             additional_wads+=' qcde--stackleft.pk3'
         fi
         ;;
     '5')
-        if [ "$server_executable" == "$qZandronumPath" ];
-        then
+        if [ "$server_executable" == "$qZandronumPath" ]; then
             itemtimers=1
         else
             additional_wads+=' qcde_megaarmorstimers_2.5.1.pk3'
@@ -524,46 +501,38 @@ for sel in $switches; do
     esac
 done
 
-if [[ "$server_executable" == "$qZandronumPath" ]];
-then
+if [[ "$server_executable" == "$qZandronumPath" ]]; then
     additional_params+=" +sv_showStackLeft $stackleft +sv_showItemTimers $itemtimers"
 fi
 
-if [[ "$useAeon" == 'true' ]];
-then
+if [[ "$useAeon" == 'true' ]]; then
     qcdemaps+=" $aeonqcde"
     maplist+=$aeonlist
 fi
 
-if [[ "$useNeon" == 'true' ]];
-then
+if [[ "$useNeon" == 'true' ]]; then
     qcdemaps+=" $neonqcde"
     maplist+=$neonlist
 fi
 
-if [[ "$useRetired" == 'true' ]];
-then
+if [[ "$useRetired" == 'true' ]]; then
     qcdemaps+=" $retiredmaps"
     maplist+=$retiredlist
 fi
 
-if [[ "$useMapList" == 'true' ]];
-then
+if [[ "$useMapList" == 'true' ]]; then
     IFS='|' read -r -a parsedMaps <<< $(parse_maplist)
     map_list=${parsedMaps[1]}
     starting_map="+map ${parsedMaps[0]}"
-elif [[ "$requires_qcdemaps" != 'true' ]];
-then
+elif [[ "$requires_qcdemaps" != 'true' ]]; then
     qcdemaps=''
 fi
 
-if [[ "$server_executable" == "$zandronumPath" ]];
-then
+if [[ "$server_executable" == "$zandronumPath" ]]; then
     (( port+=50 ))
 fi
 
-if [[ -z "${iwad}" ]];
-then
+if [[ -z "${iwad}" ]]; then
     iwad='DOOM2.WAD'
 fi
 
@@ -573,8 +542,7 @@ args="-port $port -iwad $iwad -file $mapsets $qcde $qcdemaps $wads_load_always\
 
 export LD_LIBRARY_PATH=$(dirname $server_executable)
 
-if [[ $ran_with_args -ne 1 ]] && (whiptail --backtitle "$BTITLE" --title 'Would you like to edit the command line?' --yesno ' ' $WINH $WINW);
-then
+if [[ $ran_with_args -ne 1 ]] && (whiptail --backtitle "$BTITLE" --title 'Would you like to edit the command line?' --yesno ' ' $WINH $WINW); then
     clear
     read -e -p $'\e[33m\nEdit command line parameters:\e[39m\n\n' -i "$args" args
 
