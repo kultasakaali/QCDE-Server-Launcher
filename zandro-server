@@ -60,7 +60,7 @@ export NEWT_COLORS='
 
 function usage() {
 	IFS= read -d '' -r usage <<- EOF
-	Usage: $BTITLE [-eghANSIU]
+	Usage: zandro-server [-eghANSIU]
 
 	This is a script to assist in hosting several different types of
     QC:DE servers quickly.
@@ -72,13 +72,13 @@ function usage() {
     bypass the user interface and launch the server using the settings
     passed to it.
 
-	Options
-	  -e <engine>    Choose the engine to use. 'Zandronum' or 'Q-Zandronum'
-	  -g <gamemode>  Choose the game mode to host.
-	  -h             Display this help page.
-	  -A             Load and use the AeonDM map pack.
-	  -N             Load and use the NeonDM map pack.
-	  -S             Enable the StackLeft option.
+    Options
+      -e <engine>    Choose the engine to use. 'Zandronum' or 'Q-Zandronum'
+      -g <gamemode>  Choose the game mode to host.
+      -h             Display this help page.
+      -A             Load and use the AeonDM map pack.
+      -N             Load and use the NeonDM map pack.
+      -S             Enable the StackLeft option.
       -I             Enable the ItemTimers option.
       -U             Enable the Unreal Tournament wepons add-on.
 
@@ -86,75 +86,23 @@ function usage() {
 	echo -n "$usage"
 }
 
-#TODO: use getopts instead
-POSITIONAL_ARGS=()
-while [[ $# -gt 0 ]]; do
-  ran_with_args=1
-  case $1 in
-    -e|--engine)
-      engine="$2"
-      switches+=''
-      shift # past argument
-      shift # past value
-      ;;
-    -g|--gamemode)
-      config="$2"
-      switches+=''
-      shift
-      shift
-      ;;
-    -m|--mapsets)
-      mapsets="$2"
-      switches+=''
-      shift
-      shift
-      ;;
-    -o|--monsters)
-      monsters="$2"
-      switches+=''
-      shift
-      shift
-      ;;
-    -t|--themes)
-      selected_themes="$2"
-      switches+=''
-      shift
-      shift
-      ;;
-    --AeonDM)
-      switches+=' 1'
-      shift
-      ;;
-    --NeonDM)
-      switches+=' 2'
-      shift
-      ;;
-    --RetiredMaps)
-      switches+=' 3'
-      shift
-      ;;
-    --StackLeft)
-      switches+=' 4'
-      shift
-      ;;
-    --ItemTimers)
-      switches+=' 5'
-      shift
-      ;;
-    --UTWeapons)
-      switches+=' 6'
-      shift
-      ;;
-    -*|--*)
-      echo "Unknown option $1"
-      exit 1
-      ;;
-    *)
-      POSITIONAL_ARGS+=("$1") # save positional arg
-      shift
-      ;;
-  esac
+while getopts 'e:g:hANSIU' opt; do
+    case $opt in
+        e) engine=$OPTARG;;
+        g) config=$OPTARG;;
+        h) usage; exit 0;;
+        A) switches+=' 1';;
+        N) switches+=' 2';;
+        S) switches+=' 4';;
+        I) switches+=' 5';;
+        U) switches+=' 6';;
+        *) usage; exit 1;;
+    esac
 done
+
+if (( $OPTIND != 1 )); then
+    ran_with_args=1
+fi
 
 function parse_maplist() {
 
