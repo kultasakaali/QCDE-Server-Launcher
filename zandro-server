@@ -136,6 +136,7 @@ function validate_files() {
     for segment in "${command_line[@]}"; do
         lc_segment=${segment,,}
         if [[ $lc_segment =~ '.pk3' ]] || [[ $lc_segment =~ '.wad' ]]; then
+            # Using find here to also search in subfolders
             if ! [[ $(find "$wads_folder" -name "$segment") ]]; then
                 missing_wads+=("$segment")
             fi
@@ -248,7 +249,7 @@ function menu_themes() {
     themes_total=4+${#loaded_themes[@]}
 
     for (( i=0; i<=$themes_total; i++ )); do
-        if [[ $i -gt 4 ]]; then
+        if (( i > 4 )); then
             on_off='ON'
         fi
 
@@ -267,7 +268,7 @@ function menu_themes() {
         for j in ${theme_selection[@]}; do
             eval j=$j
 
-            if [[ $i == $j ]]; then
+            if (( i == j )); then
                 theme_params+="+theme$i 1 "
                 match=true
                 break
@@ -462,14 +463,14 @@ for sel in $switches; do
         useRetired=true
         ;;
     '4')
-        if [ "$server_executable" == "$qZandronumPath" ]; then
+        if [[ "$server_executable" == "$qZandronumPath" ]]; then
             stackleft=1
         else
             additional_wads+=' qcde--stackleft.pk3'
         fi
         ;;
     '5')
-        if [ "$server_executable" == "$qZandronumPath" ]; then
+        if [[ "$server_executable" == "$qZandronumPath" ]]; then
             itemtimers=1
         else
             additional_wads+=' qcde_megaarmorstimers_2.5.1.pk3'
@@ -542,7 +543,7 @@ args="-port $port -iwad $iwad -file $mapsets $qcde $qcdemaps $wads_load_always\
 
 export LD_LIBRARY_PATH=$(dirname $server_executable)
 
-if [[ $ran_with_args -ne 1 ]] && (whiptail --backtitle "$BTITLE" --title 'Would you like to edit the command line?' --yesno ' ' $WINH $WINW); then
+if (( $ran_with_args != 1 )) && (whiptail --backtitle "$BTITLE" --title 'Would you like to edit the command line?' --yesno ' ' $WINH $WINW); then
     clear
     read -e -p $'\e[33m\nEdit command line parameters:\e[39m\n\n' -i "$args" args
 
