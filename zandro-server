@@ -67,7 +67,7 @@ function usage() {
 
     If ran without arguments, you can use the text-based user interface
     to aid you through the process of setting up your server.
-    
+
     You can also pass command line arguments to the utility which will
     bypass the user interface and launch the server using the settings
     passed to it.
@@ -132,9 +132,9 @@ function validate_files() {
     local lc_segment
     local -a command_line
     local -a missing_wads
-    
+
     echo $'\e[33m\nValidating files...\e[39m\n\n'
-    
+
     IFS=' ' read -r -a command_line <<< "$args"
 
     for segment in "${command_line[@]}"; do
@@ -180,7 +180,7 @@ function start_server() {
 function scan_folder() {
 
     local i=0
-    
+
     cd $1
     for f in *.*; do
         files[i]="$f"
@@ -270,7 +270,7 @@ function menu_themes() {
         match=0
 
         for j in ${theme_selection[@]}; do
-            eval j=$j
+            j=${j//\"}
 
             if (( i == j )); then
                 theme_params+="+theme$i 1 "
