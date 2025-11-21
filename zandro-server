@@ -63,10 +63,10 @@ function usage() {
 	Usage: zandro-server [-eghANSIU]
 
 	This is a script to assist in hosting several different types of
-    QC:DE servers quickly.
+    QC:DE servers.
 
-    If ran without arguments, you can use the TUI to aid you through
-    the process of setting up your server.
+    If ran without arguments, you can use the text-based user interface
+    to aid you through the process of setting up your server.
     
     You can also pass command line arguments to the utility which will
     bypass the user interface and launch the server using the settings
@@ -82,6 +82,10 @@ function usage() {
       -I             Enable the ItemTimers option.
       -U             Enable the Unreal Tournament wepons add-on.
 
+    Possible argument values for
+      Engine: Zandronum or Q-Zandronum
+      Game mode: FFA, TDM, Duel, Survival, ClanArena, InstaGib,
+      FreezeTag, LGPractice, Invasion, Dominatrix or CTF
 	EOF
 	echo -n "$usage"
 }
