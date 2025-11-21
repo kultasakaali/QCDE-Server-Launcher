@@ -263,19 +263,19 @@ function menu_themes() {
     fi
 
     for (( i=0; i<=$themes_total; i++ )); do
-        match=false
+        match=0
 
         for j in ${theme_selection[@]}; do
             eval j=$j
 
             if (( i == j )); then
                 theme_params+="+theme$i 1 "
-                match=true
+                match=1
                 break
             fi
         done
 
-        if [[ $match == false ]]; then
+        if (( match == 0 )); then
             theme_params+="+theme$i 0 "
         fi
     done
@@ -332,7 +332,7 @@ fi
 
 case $config in
     'FFA')
-        useMapList=true
+        useMapList=1
         config='Gametype/Deathmatch'
         additional_wads+=''
         additional_params+=''
@@ -340,14 +340,14 @@ case $config in
         ;;
 
     'TDM')
-        useMapList=true
+        useMapList=1
         config='Gametype/TeamDeathmatch'
         additional_wads+='hypnobalance_v01.pk3'
         port=15766
         ;;
 
     'Duel')
-        useMapList=true
+        useMapList=1
         maplist=$duellist
         config='Gametype/Duel'
         additional_wads+=''
@@ -356,7 +356,7 @@ case $config in
         ;;
 
     'Survival')
-        useMapList=false
+        useMapList=0
         config='Gametype/Survival'
 
         if [[ -z ${mapsets+x} ]]; then
@@ -378,13 +378,13 @@ case $config in
         ;;
 
     'ClanArena')
-	    useMapList=true
+	    useMapList=1
 	    config='Gametype/ClanArena'
 	    additional_wads+='qcde--ca_patch3.0.pk3'
 	    ;;
 
     'InstaGib')
-        useMapList=true
+        useMapList=1
         config='Gametype/Instagib'
         additional_wads+=''
         additional_params+='+addmap QCME01 +addmap QCME02'
@@ -392,23 +392,23 @@ case $config in
         ;;
 
     'FreezeTag')
-        useMapList=true
+        useMapList=1
         config='Gametype/FreezeTag'
         additional_wads+='hypnobalance_v01.pk3'
         port=16066
         ;;
 
     'LGPractice')
-        useMapList=false
+        useMapList=0
         config='Gametype/LGPractice'
-        requires_qcdemaps=true
+        requires_qcdemaps=1
         additional_wads+='qcde--lgtrain_v1.30.pk3'
         additional_params+='+addmap QCLG01 +addmap QCDL11 +addmap QCDL12'
         port=16166
         ;;
 
     'Invasion')
-        useMapList=false
+        useMapList=0
         config='Gametype/InvasionSurv'
 
         monsters=$(menu_monsters 3>&1 1>&2 2>&3)
@@ -422,14 +422,14 @@ case $config in
         ;;
 
     'Dominatrix')
-        useMapList=true
+        useMapList=1
         config='Gametype/Dominatrix'
         additional_wads+='dominatrix-v133.wad qcdemaps-domx0.8.pk3'
         port=16366
         ;;
 
     'CTF')
-        useMapList=false
+        useMapList=0
         config='Gametype/CTF'
         additional_wads+='hypnobalance_v01.pk3'
         additional_params+='+addmap QCTF01 +addmap QCTF02 +addmap QCTF03 +addmap QCTF04 +map QCTF01'
@@ -454,13 +454,13 @@ railjump=0
 for sel in $switches; do
     case "$sel" in
     '1')
-        useAeon=true
+        useAeon=1
         ;;
     '2')
-        useNeon=true
+        useNeon=1
         ;;
     '3')
-        useRetired=true
+        useRetired=1
         ;;
     '4')
         if [[ "$server_executable" == "$qZandronumPath" ]]; then
@@ -506,26 +506,26 @@ if [[ "$server_executable" == "$qZandronumPath" ]]; then
     additional_params+=" +sv_showStackLeft $stackleft +sv_showItemTimers $itemtimers"
 fi
 
-if [[ "$useAeon" == 'true' ]]; then
+if (( useAeon == 1 )); then
     qcdemaps+=" $aeonqcde"
     maplist+=$aeonlist
 fi
 
-if [[ "$useNeon" == 'true' ]]; then
+if (( useNeon == 1 )); then
     qcdemaps+=" $neonqcde"
     maplist+=$neonlist
 fi
 
-if [[ "$useRetired" == 'true' ]]; then
+if (( useRetired == 1 )); then
     qcdemaps+=" $retiredmaps"
     maplist+=$retiredlist
 fi
 
-if [[ "$useMapList" == 'true' ]]; then
+if (( useMapList == 1 )); then
     IFS='|' read -r -a parsedMaps <<< $(parse_maplist)
     map_list=${parsedMaps[1]}
     starting_map="+map ${parsedMaps[0]}"
-elif [[ "$requires_qcdemaps" != 'true' ]]; then
+elif (( requires_qcdemaps != 1 )); then
     qcdemaps=''
 fi
 
