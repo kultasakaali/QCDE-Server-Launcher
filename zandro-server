@@ -363,17 +363,9 @@ case $config in
         useMapList=0
         config='Gametype/Survival'
 
-        if [[ -z ${mapsets+x} ]]; then
-          mapsets=$(menu_mapset 3>&1 1>&2 2>&3)
-        fi
-
-        if [[ -z ${monsters+x} ]]; then
-          monsters=$(menu_monsters 3>&1 1>&2 2>&3)
-        fi
-
-        if [[ -z ${selected_themes+x} ]]; then
-          selected_themes=$(menu_themes)
-        fi
+        mapsets=$(menu_mapset 3>&1 1>&2 2>&3)
+        monsters=$(menu_monsters 3>&1 1>&2 2>&3)
+        selected_themes=$(menu_themes)
 
         wads_load_always=${wads_load_always#'qcde_pvpvisibility3.0_testing1.pk3'}
         additional_wads+=${monsters//\"}
