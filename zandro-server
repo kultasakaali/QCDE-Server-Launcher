@@ -104,6 +104,8 @@ while getopts 'e:g:hANSIU' opt; do
     esac
 done
 
+ran_with_args=0
+
 if (( $OPTIND != 1 )); then
     ran_with_args=1
 fi
@@ -539,7 +541,7 @@ args="-port $port -iwad $iwad -file $mapsets $qcde $qcdemaps $wads_load_always\
 
 export LD_LIBRARY_PATH=$(dirname $server_executable)
 
-if (( $ran_with_args != 1 )) && (whiptail --backtitle "$BTITLE" --title 'Would you like to edit the command line?' --yesno ' ' $WINH $WINW); then
+if (( $ran_with_args == 0 )) && (whiptail --backtitle "$BTITLE" --title 'Would you like to edit the command line?' --yesno ' ' $WINH $WINW); then
     clear
     read -e -p $'\e[33m\nEdit command line parameters:\e[39m\n\n' -i "$args" args
 
