@@ -15,22 +15,20 @@ zandronumPath="${HOME}/zandronum/zandronum-server"
 qZandronumPath="${HOME}/q-zandronum/q-zandronum-server"
 
 #configuration
-wads_load_always='qcde_pvpvisibility3.0_testing1.pk3'
+wads_load_always='qcde_pvpvisibility3.0_testing1.pk3 qcde3.1b2--frankfurt_boomer_balance_v0.8.pk3 qcde3.1b2--human_kane_v1.0.pk3'
 wads_optional='qcde--frankfurtloadingscreen.pk3'
 
-qcde='qcdev3.0.pk3'
+qcde='qcdev3.1_beta_2.pk3'
 qcdemaps='qcdemaps3.0.pk3'
 aeonqcde='aeonqcde3.0_beta4.pk3'
 neonqcde='neonqcde3.0.pk3'
-retiredmaps='qcde_retiredmaps_v4.pk3'
+retiredmaps='qcde_retiredmaps_v6.pk3'
 qcdemus='qcdemus3.0.pk3'
 
-community_balance='qcde--3.0_frankfurt_boomer_balance_v0.6.pk3'
-
-utweapons='qcde_ut_weapons_v3.0.pk3'
+utweapons='qcde_ut_weapons_v3.1_beta_1.pk3'
 utweapons_hires=''
-utmovement='qcde_ut_movement_v3.0.pk3'
-utmus='qcdemus_ut_v3.0.pk3'
+utmovement='qcde_ut_movement_v3.1_beta_2.pk3'
+utmus='qcdemus_ut_v3.1_beta_1.pk3'
 
 wads_folder="${HOME}/.config/zandronum"
 pve_maps_folder="${HOME}/.config/zandronum/pvemaps"
@@ -299,8 +297,7 @@ function menu_switches() {
         '6' 'UT Weapons' OFF \
         '7' 'RailJump' OFF \
         '8' 'RandomChampions' OFF \
-        '9' 'RandomRocketArena' OFF \
-        '10' 'Community Balance' OFF
+        '9' 'RandomRocketArena' OFF
 
     if [[ $? == 255 ]]; then
         exit_handler
@@ -408,6 +405,7 @@ case $config in
     'Invasion')
         useMapList=0
         config='Gametype/InvasionSurv'
+	requires_qcdemaps=1
 
         monsters=$(menu_monsters 3>&1 1>&2 2>&3)
         selected_themes=$(menu_themes)
@@ -493,9 +491,6 @@ for sel in $switches; do
         ;;
     '9')
         additional_wads+=' qcde--randomrocketarena_v1.02.pk3'
-        ;;
-    '10')
-        additional_wads+=" $community_balance"
         ;;
     esac
 done
