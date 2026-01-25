@@ -15,7 +15,9 @@ zandronumPath="${HOME}/zandronum/zandronum-server"
 qZandronumPath="${HOME}/q-zandronum/q-zandronum-server"
 
 #configuration
-wads_load_always='qcde_pvpvisibility3.0_testing1.pk3 qcde3.1b2--frankfurt_boomer_balance_v0.8.pk3 qcde3.1b2--human_kane_v1.0.pk3'
+custom_ruleset='qcde3.1b2--frankfurt_boomer_balance_v0.8.pk3'
+
+wads_load_always="qcde_pvpvisibility3.0_testing1.pk3 $custom_ruleset qcde3.1b2--human_kane_v1.0.pk3"
 wads_optional='qcde--frankfurtloadingscreen.pk3'
 
 qcde='qcdev3.1_beta_2.pk3'
@@ -475,6 +477,7 @@ for sel in $switches; do
     '6')
         additional_wads+=" $utweapons $utmovement"
         wads_optional+=" $utweapons_hires"
+        wads_load_always=${wads_load_always//"$custom_ruleset"}
         qcdemus=$utmus
         ;;
     '7')
