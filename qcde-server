@@ -370,6 +370,7 @@ case $config in
 	    useMapList=1
 	    config='Gametype/ClanArena'
 	    additional_wads+='qcde3.1b2--ca_patch3.1.pk3'
+        port=16666
 	    ;;
 
     'InstaGib')
