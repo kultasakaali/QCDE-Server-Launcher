@@ -10,6 +10,7 @@ user interface and launch the server using the settings passed to it.
 
 |Option         |Description                                            |
 |---------------|-------------------------------------------------------|
+|-c <config>    |Specify a launcher configuration file to use.          |
 |-e <engine>    |Choose the `engine` to use.                            |
 |-g <gamemode>  |Choose the `game mode` to host.                        |
 |-h             |Display usage info.                                    |
@@ -25,3 +26,4 @@ Supported values for options, that require arguments are:
 |---------|--------------------------------------------------------------------------------------------------------------------------|
 |Engine   |`Zandronum` or `Q-Zandronum`                                                                                              |
 |Game mode|`FFA`, `TDM`, `Duel`, `Survival`, `ClanArena`, `InstaGib`,<br>`FreezeTag`, `LGPractice`, `Invasion`, `Dominatrix` or `CTF`|
+|Config   |Any non-default launcher configuration file should be placed in `~/.config/qcde-server` or `$XDG_CONFIG_HOME/qcde-server` |
