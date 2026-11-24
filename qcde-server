@@ -10,38 +10,15 @@ WINH=16
 WINW=56
 LSTH=8
 
-#engines
-zandronumPath="${HOME}/zandronum/zandronum-server"
-qZandronumPath="${HOME}/q-zandronum/q-zandronum-server"
-
 #configuration
-custom_ruleset='qcde3.1b3--frankfurt_boomer_balance_v1.0.pk3'
-pvp_visibility='qcde_pvpvisibility3.0_testing1.pk3'
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/qcde-server"
+CONFIG_FILE="$CONFIG_DIR/qcde-server.conf"
 
-wads_load_always="$pvp_visibility $custom_ruleset qcde3.1b3--human_kane_v1.0.pk3"
-wads_optional='qcde--frankfurtloadingscreen.pk3'
-
-qcde='qcdev3.1_beta_3.pk3'
-qcdemaps='qcdemaps3.1_beta_3.pk3'
-aeonqcde='aeonqcde3.0_beta4.pk3'
-neonqcde='neonqcde3.1.pk3'
-retiredmaps='qcde_retiredmaps_v6.pk3'
-qcdemus='qcdemus3.0.pk3'
-
-utweapons='qcde_ut_weapons_v3.1_beta_3.pk3'
-utweapons_hires=''
-utmovement='qcde_ut_movement_v3.1_beta_3.pk3'
-utmus='qcdemus_ut_v3.1_beta_3.pk3'
-
-wads_folder="${HOME}/.config/zandronum"
-pve_maps_folder="${HOME}/.config/zandronum/pvemaps"
-pve_monster_folder="${HOME}/.config/zandronum/pvemons"
-
-maplist='QCDE01;QCDE02;QCDE03;QCDE04;QCDE05;QCDE06;QCDE07;QCDE08;QCDE09;QCDE10;QCDE11;QCDE13;QCDE14;QCDE15;QCDE16;QCDE17;QCDE18;QCDE19;QCDE20;QCDE21;QCDE22;QCDE23;QCDE24;QCDE25;QCDE26;QCDE27;QCDE28;QCDE29;QCDE30;QCDE31;QCDE32;QCDE33;QCDE34;QCDE35;QCDE36;QCDE37;QCDE38;QCDE39;QCDE40;QCDE41;QCDE42;QCDE43;QCDE44;QCDE45;QCDE46;QCDE47;QCDE48;QCDE49;QCDE50;QCDL02;QCDL03;QCDL04;QCDL05;QCDL06;QCDL07;QCDL09;QCDL10;QCDL13;QCDL14;QCDL15;QCME01;QCME02'
-duellist='QCDE01;QCDE02;QCDE05;QCDE06;QCDE08;QCDE09;QCDE10;QCDE11;QCDE13;QCDE14;QCDE15;QCDE16;QCDE18;QCDE19;QCDE21;QCDE22;QCDE23;QCDE24;QCDE26;QCDE27;QCDE28;QCDE29;QCDE30;QCDE32;QCDE35;QCDE37;QCDE39;QCDE40;QCDE41;QCDE42;QCDE45;QCDE46;QCDE48;QCDE50;QCDL02;QCDL03;QCDL04;QCDL05;QCDL06;QCDL07;QCDL09;QCDL10;QCDL13;QCDL14;QCDL15'
-retiredlist=';QCRT01;QCRT07;QCRT09'
-aeonlist=';AEON01;AEON02;AEON03;AEON04;AEON05;AEON06;AEON07;AEON08;AEON09;AEON10;AEON11;AEON12;AEON13;AEON14;AEON15;AEON16;AEON17;AEON18;AEON19;AEON20;AEON21;AEON22;AEON23;AEON24;AEON25;AEON26;AEON27;AEON28;AEON29;AEON30;AEON31;AEON32;AEON33'
-neonlist=';NEON01;NEON02;NEON03;NEON04;NEON05;NEON06;NEON07;NEON08;NEON09;NEON10;NEON11;NEON12;NEON13;NEON14;NEON15'
+if [[ ! -f "$CONFIG_FILE" ]]; then
+    mkdir -p "$CONFIG_DIR"
+    cp "$SCRIPT_DIR/qcde-server_default.conf" "$CONFIG_FILE"
+fi
 
 export NEWT_COLORS='
     window=black,black
@@ -74,6 +51,7 @@ function usage() {
     passed to it.
 
     Options
+      -c <config>    Specify a launcher configuration file to use.
       -e <engine>    Choose the engine to use. 'Zandronum' or 'Q-Zandronum'
       -g <gamemode>  Choose the game mode to host.
       -h             Display this help page.
@@ -84,15 +62,18 @@ function usage() {
       -U             Enable the Unreal Tournament wepons add-on.
 
     Possible argument values for
-      Engine: Zandronum or Q-Zandronum
-      Game mode: FFA, TDM, Duel, Survival, ClanArena, InstaGib,
-      FreezeTag, LGPractice, Invasion, Dominatrix or CTF
+      Engine:     Zandronum or Q-Zandronum
+      Game mode:  FFA, TDM, Duel, Survival, ClanArena, InstaGib,
+                  FreezeTag, LGPractice, Invasion, Dominatrix or CTF
+      Config:     Any non-default launcher configuration file should be
+                  placed in the $CONFIG_DIR directory
 	EOF
 	echo -n "$usage"
 }
 
-while getopts 'e:g:hANSIU' opt; do
+while getopts 'c:e:g:hANSIU' opt; do
     case $opt in
+        c) CONFIG_FILE=$CONFIG_DIR/$OPTARG;;
         e) engine=$OPTARG;;
         g) config=$OPTARG;;
         h) usage; exit 0;;
@@ -104,6 +85,16 @@ while getopts 'e:g:hANSIU' opt; do
         *) usage; exit 1;;
     esac
 done
+
+if [[ ! -f "$CONFIG_FILE" ]]; then
+    echo "Error: Launcher configuration file not found: $CONFIG_FILE" >&2
+    exit 1
+fi
+
+if ! source "$CONFIG_FILE"; then
+    echo "Error: Failed to load launcher configuration: $CONFIG_FILE" >&2
+    exit 1
+fi
 
 ran_with_args=0
 
@@ -144,7 +135,7 @@ function validate_files() {
         lc_segment=${segment,,}
         if [[ $lc_segment =~ '.pk3' ]] || [[ $lc_segment =~ '.wad' ]]; then
             # Using find here to also search in subfolders
-            if ! [[ $(find "$wads_folder" -name "$segment") ]]; then
+            if [[ ! $(find "$wads_folder" -name "$segment") ]]; then
                 missing_wads+=("$segment")
             fi
         fi
@@ -477,7 +468,6 @@ for sel in $switches; do
         ;;
     '6')
         additional_wads+=" $utweapons $utmovement"
-        wads_optional+=" $utweapons_hires"
         wads_load_always=${wads_load_always//"$custom_ruleset"}
         qcdemus=$utmus
         ;;
