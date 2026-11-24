@@ -529,7 +529,7 @@ args="-port $port -iwad $iwad -file $mapsets $qcde $qcdemaps $wads_load_always\
  -optfile $qcdemus $wads_optional -file $additional_wads $map_list\
  +exec $config $additional_params $starting_map"
 
-export LD_LIBRARY_PATH=$(dirname $server_executable)
+export LD_LIBRARY_PATH="$(dirname "$server_executable")${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"
 
 if (( $ran_with_args == 0 )) && (whiptail --backtitle "$BTITLE" --title 'Would you like to edit the command line?' --yesno ' ' $WINH $WINW); then
     clear
