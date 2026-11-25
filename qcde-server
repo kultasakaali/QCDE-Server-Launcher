@@ -11,7 +11,11 @@ WINW=56
 LSTH=8
 
 #configuration
-SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")" || {
+    echo "Error: Could not determine the script location." >&2
+    exit 1
+}
+SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
 GAMETYPE_DIR="$SCRIPT_DIR/Gametype"
 CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/qcde-server"
 CONFIG_FILE="$CONFIG_DIR/qcde-server.conf"
