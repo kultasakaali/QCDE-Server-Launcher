@@ -178,7 +178,7 @@ function scan_folder() {
 
     local i=0
 
-    cd $1
+    cd "$1"
     for f in *.*; do
         files[i]="$f"
         files[i+1]=' '
