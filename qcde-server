@@ -12,6 +12,7 @@ LSTH=8
 
 #configuration
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+GAMETYPE_DIR="$SCRIPT_DIR/Gametype"
 CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/qcde-server"
 CONFIG_FILE="$CONFIG_DIR/qcde-server.conf"
 
@@ -333,7 +334,7 @@ fi
 case $config in
     'FFA')
         useMapList=1
-        config='Gametype/Deathmatch'
+        config="$GAMETYPE_DIR/Deathmatch"
         additional_wads+=''
         additional_params+=''
         port=15666
@@ -341,7 +342,7 @@ case $config in
 
     'TDM')
         useMapList=1
-        config='Gametype/TeamDeathmatch'
+        config="$GAMETYPE_DIR/TeamDeathmatch"
         additional_wads+='hypnobalance_v01.pk3'
         port=15766
         ;;
@@ -349,7 +350,7 @@ case $config in
     'Duel')
         useMapList=1
         maplist=$duellist
-        config='Gametype/Duel'
+        config="$GAMETYPE_DIR/Duel"
         additional_wads+=''
         additional_params+=''
         port=15866
@@ -357,7 +358,7 @@ case $config in
 
     'Survival')
         useMapList=0
-        config='Gametype/Survival'
+        config="$GAMETYPE_DIR/Survival"
 
         mapsets=$(menu_mapset 3>&1 1>&2 2>&3)
         monsters=$(menu_monsters 3>&1 1>&2 2>&3)
@@ -371,14 +372,14 @@ case $config in
 
     'ClanArena')
 	    useMapList=1
-	    config='Gametype/ClanArena'
+	    config="$GAMETYPE_DIR/ClanArena"
 	    additional_wads+='qcde3.1b2--ca_patch3.1.pk3'
         port=16666
 	    ;;
 
     'InstaGib')
         useMapList=1
-        config='Gametype/Instagib'
+        config="$GAMETYPE_DIR/Instagib"
         additional_wads+=''
         additional_params+='+addmap QCME01 +addmap QCME02'
         port=15966
@@ -386,14 +387,14 @@ case $config in
 
     'FreezeTag')
         useMapList=1
-        config='Gametype/FreezeTag'
+        config="$GAMETYPE_DIR/FreezeTag"
         additional_wads+='hypnobalance_v01.pk3'
         port=16066
         ;;
 
     'LGPractice')
         useMapList=0
-        config='Gametype/LGPractice'
+        config="$GAMETYPE_DIR/LGPractice"
         requires_qcdemaps=1
         additional_wads+='qcde--lgtrain_v1.30.pk3'
         additional_params+='+addmap QCLG01 +addmap QCDL11 +addmap QCDL12'
@@ -402,7 +403,7 @@ case $config in
 
     'Invasion')
         useMapList=0
-        config='Gametype/InvasionSurv'
+        config="$GAMETYPE_DIR/InvasionSurv"
 	requires_qcdemaps=1
 
         monsters=$(menu_monsters 3>&1 1>&2 2>&3)
@@ -417,14 +418,14 @@ case $config in
 
     'Dominatrix')
         useMapList=1
-        config='Gametype/Dominatrix'
+        config="$GAMETYPE_DIR/Dominatrix"
         additional_wads+='dominatrix-v133.wad qcdemaps-domx0.8.pk3'
         port=16366
         ;;
 
     'CTF')
         useMapList=0
-        config='Gametype/CTF'
+        config="$GAMETYPE_DIR/CTF"
         additional_wads+='hypnobalance_v01.pk3'
         additional_params+='+addmap QCTF01 +addmap QCTF02 +addmap QCTF03 +addmap QCTF04 +map QCTF01'
         port=16466
