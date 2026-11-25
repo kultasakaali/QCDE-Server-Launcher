@@ -86,6 +86,9 @@ while getopts 'c:e:g:hANSIU' opt; do
     esac
 done
 
+shift "$((OPTIND - 1))"
+POSITIONAL_ARGS=("$@")
+
 if [[ ! -f "$CONFIG_FILE" ]]; then
     echo "Error: Launcher configuration file not found: $CONFIG_FILE" >&2
     exit 1
