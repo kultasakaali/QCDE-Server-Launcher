@@ -1,20 +1,32 @@
 #!/usr/bin/env bash
 
+if (( $# < 1 || $# > 2 )) || [[ -z "$1" ]]; then
+    printf 'Usage: tspg-get <filename> [destination-directory]\n' >&2
+    exit 2
+fi
+
 WADNAME="$1"
-TARGET_DIR="${HOME}/.config/zandronum"
-TARGET_PATH="${TARGET_DIR}/${WADNAME}"
-mkdir -p "${TARGET_DIR}"
+TARGET_DIR="${2:-${HOME}/.config/zandronum}"
+TARGET_PATH="$TARGET_DIR/$WADNAME"
+
+if ! mkdir -p "$TARGET_DIR"; then
+    printf 'ERROR: Could not create destination directory: %s\n' "$TARGET_DIR" >&2
+    exit 1
+fi
 
 if [[ -f "$TARGET_PATH" ]]; then
-    echo "$TARGET_PATH already exists."
+    printf '%s already exists.\n' "$TARGET_PATH"
+    exit 0
+fi
+
+USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0"
+
+if wget -U "$USER_AGENT" "https://allfearthesentinel.com/zandronum/download.php?file=${WADNAME}" -O "$TARGET_PATH"; then
+    printf 'Download successful -- %s\n' "$WADNAME"
     exit 0
 else
-    USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:106.0) Gecko/20100101 Firefox/106.0"
-    wget -U "${USER_AGENT}" https://allfearthesentinel.com/zandronum/download.php?file="${WADNAME}" -O"${TARGET_PATH}"
-    WGET_RESULT="$?"
-    >&2 echo "wget failure ($WGET_RESULT)"
-    if [[ $WGET_RESULT -ne 0 ]]; then
-        rm "${TARGET_PATH}"
-    fi
-    exit $WGET_RESULT
+    WGET_RESULT=$?
+    printf 'ERROR: wget failed to download the file (exit status %d)\n' "$WGET_RESULT" >&2
+    rm -f "$TARGET_PATH"
+    exit "$WGET_RESULT"
 fi
