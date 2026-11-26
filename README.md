@@ -66,7 +66,7 @@ rm "${XDG_CONFIG_HOME:-$HOME/.config}/qcde-server/qcde-server.conf"
 ```
 
 ## Configuration
-On the first run, `qcde-server_default.conf` is be copied to:
+On the first run, `qcde-server_default.conf` is copied to:
     - `~/.config/qcde-server/qcde-server.conf`, or
     - `$XDG_CONFIG_HOME/qcde-server/qcde-server.conf`, if `$XDG_CONFIG_HOME` is defined.
   
@@ -129,3 +129,20 @@ Supported values for options that require arguments are:
 |Engine   |`Zandronum` or `Q-Zandronum`                                                                                              |
 |Game mode|`FFA`, `TDM`, `Duel`, `Survival`, `ClanArena`, `InstaGib`,<br>`FreezeTag`, `LGPractice`, `Invasion`, `Dominatrix` or `CTF`|
 |Config   |Any non-default launcher configuration file should be placed in `~/.config/qcde-server` or `$XDG_CONFIG_HOME/qcde-server` |
+
+## TSPG-GET
+
+`tspg-get` is a small utility originally written by [Klaufir](https://github.com/klaufir216).  
+It can be used to download files hosted on [The Sentinel's Playground](https://allfearthesentinel.com/).
+
+### Usage
+
+```bash
+tspg-get <filename> [destination-directory]
+```
+If the destination is not specified, the script defaults to `~/.config/zandronum`.  
+  
+#### Notes:
+    - Specify file names as they are uploaded to TSPG
+    - Existing files will **not** be overwritten
+    - If the destination directory doesn't exist, it will be created
