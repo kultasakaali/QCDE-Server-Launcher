@@ -151,29 +151,29 @@ function validate_files() {
     done
 
     if [[ ${#missing_wads[@]} == 0 ]]; then
-        true
+        return 0
+    fi
+
+    if (whiptail --backtitle "$BTITLE" --title 'File(s) missing' --yesno 'Some files selected for loading could not be found.\nWould you like to try and download them automatically?' $WINH $WINW); then
+        for file in "${missing_wads[@]}"; do
+            if ! tspg-get "$file" "$wads_folder"; then
+                whiptail --backtitle "$BTITLE" --title 'Download error!' --msgbox "Could not download $file\nPlease check if the specified file name is correct." $WINH $WINW
+                return 1
+            else
+                return 0
+            fi
+        done
+    elif whiptail --backtitle "$BTITLE" --title 'File(s) missing' --yesno 'Would you like to start the server anyway?' $WINH $WINW; then
+        return 0
     else
-        if (whiptail --backtitle "$BTITLE" --title 'File(s) missing' --yesno 'Some files selected for loading could not be found.\nWould you like to try and download them automatically?' $WINH $WINW); then
-            for file in "${missing_wads[@]}"; do
-                if ! tspg-get "$file" "$wads_folder"; then
-                    whiptail --backtitle "$BTITLE" --title 'Download error!' --msgbox "Could not download $file\nPlease check if the specified file name is correct." $WINH $WINW
-                    false
-                else
-                    true
-                fi
-            done
-        elif whiptail --backtitle "$BTITLE" --title 'File(s) missing' --yesno 'Would you like to start the server anyway?' $WINH $WINW; then
-            true
-        else
-            false
-        fi
+        return 1
     fi
 }
 
 function start_server() {
     if validate_files; then
         echo $'\e[33m\nFiles validated, starting server...\e[39m\n\n'
-        $server_executable $args $POSITIONAL_ARGS
+        $server_executable $args "${POSITIONAL_ARGS[@]}"
     else
         echo $'\e[33m\nAn error occured, the server could not be started.\e[39m\n\n'
     fi
