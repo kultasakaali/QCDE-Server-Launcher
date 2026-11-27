@@ -35,13 +35,7 @@ cd ~
 git clone https://github.com/kultasakaali/QCDE-Server-Launcher.git
 ```
 
-3. Make scripts executable  
-```bash
-cd QCDE-Server-Launcher
-chmod +x qcde-server tspg-get
-```
-
-4. Create symlinks  
+3. Create symlinks  
 To keep the cloned repository intact while still being able to run the scripts from anywhere, create symbolic links in `~/.local/bin` or another directory already included in your `$PATH`:
 ```bash
 mkdir -p ~/.local/bin
@@ -49,7 +43,8 @@ mkdir -p ~/.local/bin
 ln -s "$(pwd)/qcde-server" ~/.local/bin/qcde-server
 ln -s "$(pwd)/tspg-get" ~/.local/bin/tspg-get
 ```
-You can now run the scripts simply by typing `qcde-server` or `tspg-get` in your terminal.
+You can now run the scripts simply by typing `qcde-server` or `tspg-get` in your terminal.  
+If you do not wish to create symlinks, you can also use an alias.
 
 ## Updates
 Using symlinks makes updating the launcher and its default configurations very simple.
