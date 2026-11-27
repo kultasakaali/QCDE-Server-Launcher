@@ -67,8 +67,9 @@ rm "${XDG_CONFIG_HOME:-$HOME/.config}/qcde-server/qcde-server.conf"
 
 ## Configuration
 On the first run, `qcde-server_default.conf` is copied to:
-    - `~/.config/qcde-server/qcde-server.conf`, or
-    - `$XDG_CONFIG_HOME/qcde-server/qcde-server.conf`, if `$XDG_CONFIG_HOME` is defined.
+
+- `~/.config/qcde-server/qcde-server.conf`, or
+- `$XDG_CONFIG_HOME/qcde-server/qcde-server.conf`, if `$XDG_CONFIG_HOME` is defined.
   
 You can edit this configuration to customize:
     - Engine executable locations
@@ -110,17 +111,17 @@ qcde-server -e Q-Zandronum -g FFA -- +sv_maxplayers 16 +sv_forcepassword true
 
 ## Command-line options
 
-|Option         |Description                                            |
-|---------------|-------------------------------------------------------|
-|-c <config>    |Specify a launcher configuration file to use.          |
-|-e <engine>    |Choose the `engine` to use.                            |
-|-g <gamemode>  |Choose the `game mode` to host.                        |
-|-h             |Display usage info.                                    |
-|-A             |Load and use the AeonDM map pack.                      |
-|-N             |Load and use the NeonDM map pack.                      |
-|-S             |Enable the StackLeft option.                           |
-|-I             |Enable the ItemTimers option.                          |
-|-U             |Enable the Unreal Tournament weapons add-on.           |
+|Option           |Description                                            |
+|-----------------|-------------------------------------------------------|
+|`-c <config>`    |Specify a launcher configuration file to use.          |
+|`-e <engine>`    |Choose the `engine` to use.                            |
+|`-g <gamemode>`  |Choose the `game mode` to host.                        |
+|`-h`             |Display usage info.                                    |
+|`-A`             |Load and use the AeonDM map pack.                      |
+|`-N`             |Load and use the NeonDM map pack.                      |
+|`-S`             |Enable the StackLeft option.                           |
+|`-I`             |Enable the ItemTimers option.                          |
+|`-U`             |Enable the Unreal Tournament weapons add-on.           |
 
 Supported values for options that require arguments are:
 
