@@ -12,7 +12,7 @@ LSTH=8
 
 #configuration
 if ! SCRIPT_PATH=$(readlink -f -- "${BASH_SOURCE[0]}"); then
-    echo 'Error: Could not determine the script location.\n' >&2
+    printf 'Error: Could not determine the script location.\n' >&2
     exit 1
 fi
 
@@ -44,12 +44,12 @@ export NEWT_COLORS='
 
 function usage() {
 	IFS= read -d '' -r usage <<- EOF
-	Usage: zandro-server [-eghANSIU]
+	Usage: qcde-server [-ceghANSIU]
 
 	This is a script to assist in hosting several different types of
     QC:DE servers.
 
-    If ran without arguments, you can use the text-based user interface
+    When ran without arguments, you can use the text-based user interface
     to aid you through the process of setting up your server.
 
     You can also pass command line arguments to the utility which will
@@ -65,7 +65,7 @@ function usage() {
       -N             Load and use the NeonDM map pack.
       -S             Enable the StackLeft option.
       -I             Enable the ItemTimers option.
-      -U             Enable the Unreal Tournament wepons add-on.
+      -U             Enable the Unreal Tournament weapons add-on.
 
     Possible argument values for
       Engine:     Zandronum or Q-Zandronum
@@ -73,6 +73,9 @@ function usage() {
                   FreezeTag, LGPractice, Invasion, Dominatrix or CTF
       Config:     Any non-default launcher configuration file should be
                   placed in the $CONFIG_DIR directory
+	
+    Additional command line arguments can be passed to the server executable
+    after the options using the '--' separator.
 	EOF
 	echo -n "$usage"
 }
